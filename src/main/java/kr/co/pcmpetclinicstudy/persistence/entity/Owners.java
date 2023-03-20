@@ -32,13 +32,11 @@ public class Owners {
     private String telephone;
 
     @Builder
-    public Owners(Long oId,
-                  String address,
+    public Owners(String address,
                   String city,
                   String firstName,
                   String lastName,
                   String telephone) {
-        this.oId = oId;
         this.address = address;
         this.city = city;
         this.firstName = firstName;
