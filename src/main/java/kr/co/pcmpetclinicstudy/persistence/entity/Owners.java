@@ -1,6 +1,7 @@
 package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
+import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,12 +10,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "tbl_owners")
 @Entity
 @NoArgsConstructor //기본 생성자 만들기
-public class Owners {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "owners_id", length = 4) //Column(length -> 데이터베이스 안 열의 문자열의 길이 지정)
-    private Long oId;
+@AttributeOverride( //컬럼 명 속성 재 정의
+        name = "id",
+        column = @Column(name = "owners_id", length = 4)
+)
+public class Owners extends BaseEntity {
 
     @Column(name = "address")
     private String address;

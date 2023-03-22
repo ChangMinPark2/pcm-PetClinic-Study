@@ -1,6 +1,7 @@
 package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
+import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,12 +11,11 @@ import java.time.LocalDate;
 @Table(name = "tbl_pets")
 @Getter
 @NoArgsConstructor
-public class Pets {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pets_id", length = 4)
-    private Long pId;
+@AttributeOverride( //컬럼 명 속성 재 정의
+        name = "id",
+        column = @Column(name = "pets_id", length = 4)
+)
+public class Pets extends BaseEntity {
 
     @Column(name = "birth_date")
     private LocalDate localDate;
@@ -23,7 +23,7 @@ public class Pets {
     @Column(name = "name", length = 30)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owners_id")
     private Owners owners;
 

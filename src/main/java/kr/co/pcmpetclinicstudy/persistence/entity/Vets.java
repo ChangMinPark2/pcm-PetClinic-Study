@@ -1,6 +1,7 @@
 package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
+import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,12 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "tbl_vets")
-public class Vets {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "vets_id")
-    private Long vId;
+@AttributeOverride( //컬럼 명 속성 재 정의
+        name = "id",
+        column = @Column(name = "vets_id", length = 4)
+)
+public class Vets extends BaseEntity {
 
     @Column(name = "first_name", length = 30)
     private String firstName;
@@ -23,7 +23,8 @@ public class Vets {
     private String lastName;
 
     @Builder
-    public Vets(String firstName, String lastName) {
+    public Vets(String firstName,
+                String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
