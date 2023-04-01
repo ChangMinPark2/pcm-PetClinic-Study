@@ -1,6 +1,7 @@
 package kr.co.pcmpetclinicstudy.controller;
 
 import kr.co.pcmpetclinicstudy.service.model.request.CreateOwnerDto;
+import kr.co.pcmpetclinicstudy.service.model.request.DeleteOwnerDto;
 import kr.co.pcmpetclinicstudy.service.model.request.UpdateOwnerDto;
 import kr.co.pcmpetclinicstudy.service.service.OwnersService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,11 @@ public class OwnersController {
     @PutMapping("/update")
     public void updateOwner(@RequestBody UpdateOwnerDto updateOwnerDto){
         ownersService.updateOwner(updateOwnerDto);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteOwner(@RequestBody DeleteOwnerDto deleteOwnerDto){
+        ownersService.deleteOwner(deleteOwnerDto);
     }
 
 
