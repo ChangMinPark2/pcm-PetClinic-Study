@@ -1,13 +1,11 @@
 package kr.co.pcmpetclinicstudy.controller;
 
 import kr.co.pcmpetclinicstudy.service.model.request.PetDto.CreatePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.PetDto.DeletePetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.PetDto.UpdatePetDto;
 import kr.co.pcmpetclinicstudy.service.service.PetsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,5 +22,10 @@ public class PetsController {
     @PutMapping("/update")
     public void updatePet(UpdatePetDto updatePetDto){
         petsService.UpdatePet(updatePetDto);
+    }
+
+    @DeleteMapping("/delete")
+    public void deletePet(DeletePetDto deletePetDto){
+        petsService.deletePet(deletePetDto);
     }
 }
