@@ -2,9 +2,10 @@ package kr.co.pcmpetclinicstudy.service.service;
 
 import kr.co.pcmpetclinicstudy.persistence.entity.Owners;
 import kr.co.pcmpetclinicstudy.persistence.repository.OwnersRepository;
-import kr.co.pcmpetclinicstudy.service.model.request.CreateOwnerDto;
-import kr.co.pcmpetclinicstudy.service.model.request.DeleteOwnerDto;
-import kr.co.pcmpetclinicstudy.service.model.request.UpdateOwnerDto;
+import kr.co.pcmpetclinicstudy.service.model.request.OwnerDto.CreateOwnerDto;
+import kr.co.pcmpetclinicstudy.service.model.request.OwnerDto.DeleteOwnerDto;
+import kr.co.pcmpetclinicstudy.service.model.request.OwnerDto.ReadOwnerDto;
+import kr.co.pcmpetclinicstudy.service.model.request.OwnerDto.UpdateOwnerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +28,11 @@ public class OwnersService {
     public void deleteOwner(DeleteOwnerDto deleteOwnerDto){
         Owners owners = new Owners();
         ownersRepository.delete(owners);
+    }
+
+    public ReadOwnerDto readOwner(String identity){
+        Owners owners = new Owners();
+
+        return owners.of(owners);
     }
 }

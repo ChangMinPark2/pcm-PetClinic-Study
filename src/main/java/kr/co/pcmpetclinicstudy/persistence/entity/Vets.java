@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @Entity
@@ -23,15 +26,13 @@ public class Vets extends BaseEntity {
     @Column(name = "last_name", length = 30)
     private String lastName;
 
-    @Column(name = "specialties")
-    private Specialties specialties;
+    @OneToMany(mappedBy = "vets") //vets는 vetSpecialties를 리스트로 가지며, mappedBy를 사용함으로써 vets는 주인이 아님을 알려준다.
+    List<VetSpecialties> vetSpecialties = new ArrayList<>();
 
     @Builder
     public Vets(String firstName,
-                String lastName,
-                Specialties specialties) {
+                String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.specialties = specialties;
     }
 }

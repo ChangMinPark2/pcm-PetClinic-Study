@@ -1,8 +1,9 @@
 package kr.co.pcmpetclinicstudy.controller;
 
-import kr.co.pcmpetclinicstudy.service.model.request.CreateOwnerDto;
-import kr.co.pcmpetclinicstudy.service.model.request.DeleteOwnerDto;
-import kr.co.pcmpetclinicstudy.service.model.request.UpdateOwnerDto;
+import kr.co.pcmpetclinicstudy.service.model.request.OwnerDto.CreateOwnerDto;
+import kr.co.pcmpetclinicstudy.service.model.request.OwnerDto.DeleteOwnerDto;
+import kr.co.pcmpetclinicstudy.service.model.request.OwnerDto.ReadOwnerDto;
+import kr.co.pcmpetclinicstudy.service.model.request.OwnerDto.UpdateOwnerDto;
 import kr.co.pcmpetclinicstudy.service.service.OwnersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,8 @@ public class OwnersController {
         ownersService.deleteOwner(deleteOwnerDto);
     }
 
-
-
-
+    @GetMapping("/read")
+    public ReadOwnerDto readOwner(@RequestParam("identity") String identity){
+        return ownersService.readOwner(identity);
+    }
 }

@@ -2,6 +2,7 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
+import kr.co.pcmpetclinicstudy.service.model.request.OwnerDto.ReadOwnerDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,5 +43,15 @@ public class Owners extends BaseEntity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.telephone = telephone;
+    }
+
+    public static ReadOwnerDto of(Owners owners){
+        return ReadOwnerDto.builder()
+                .address(owners.address)
+                .city(owners.city)
+                .firstName(owners.firstName)
+                .lastName(owners.lastName)
+                .telephone(owners.telephone)
+                .build();
     }
 }
