@@ -3,6 +3,7 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import kr.co.pcmpetclinicstudy.service.model.PetsTypes;
+import kr.co.pcmpetclinicstudy.service.model.request.PetDto.ReadPetDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,5 +41,14 @@ public class Pets extends BaseEntity {
         this.name = name;
         this.owners = owners;
         this.petsTypes = petsTypes;
+    }
+
+    public static ReadPetDto of(Pets pets){
+        return ReadPetDto.builder()
+                .birthDate(pets.birthDate)
+                .name(pets.name)
+                .owners(pets.owners)
+                .petsTypes(pets.petsTypes)
+                .build();
     }
 }

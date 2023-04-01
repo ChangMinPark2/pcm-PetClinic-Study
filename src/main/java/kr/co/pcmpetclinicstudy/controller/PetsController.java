@@ -2,6 +2,7 @@ package kr.co.pcmpetclinicstudy.controller;
 
 import kr.co.pcmpetclinicstudy.service.model.request.PetDto.CreatePetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.PetDto.DeletePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.PetDto.ReadPetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.PetDto.UpdatePetDto;
 import kr.co.pcmpetclinicstudy.service.service.PetsService;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,10 @@ public class PetsController {
     @DeleteMapping("/delete")
     public void deletePet(DeletePetDto deletePetDto){
         petsService.deletePet(deletePetDto);
+    }
+
+    @GetMapping("/read")
+    public ReadPetDto readPet(@RequestParam("identity") String identity){
+      return petsService.readPet(identity);
     }
 }
