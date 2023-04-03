@@ -9,6 +9,8 @@ import java.util.List;
 @Getter
 public class UpdateVetDto {
 
+    private Long id;
+
     @NotNull(message = "이름을 입력해주세요.")
     private String firstName;
 

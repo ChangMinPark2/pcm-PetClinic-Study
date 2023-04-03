@@ -3,10 +3,10 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import kr.co.pcmpetclinicstudy.service.model.request.vetDto.CreateVetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.vetDto.ReadVetDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
         name = "id",
         column = @Column(name = "vets_id", length = 4)
 )
-public class Vets extends BaseEntity {
+public class Vet extends BaseEntity {
 
     @Column(name = "first_name", length = 30)
     private String firstName;
@@ -30,16 +30,16 @@ public class Vets extends BaseEntity {
     List<VetSpecialties> vetSpecialties = new ArrayList<>();
 
     @Builder
-    public Vets(String firstName,
-                String lastName,
-                List<VetSpecialties> vetSpecialties) {
+    public Vet(String firstName,
+               String lastName,
+               List<VetSpecialties> vetSpecialties) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.vetSpecialties = vetSpecialties;
     }
 
-    public static Vets of(CreateVetDto createVetDto){
-        return Vets.builder()
+    public static Vet of(CreateVetDto createVetDto){
+        return Vet.builder()
                 .firstName(createVetDto.getFirstName())
                 .lastName(createVetDto.getLastName())
                 .vetSpecialties(createVetDto.getVetSpecialties())
@@ -52,5 +52,13 @@ public class Vets extends BaseEntity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.vetSpecialties = vetSpecialties;
+    }
+
+    public static ReadVetDto of (Vet vet){
+        return ReadVetDto.builder()
+                .firstName(vet.firstName)
+                .lastName(vet.lastName)
+                .vetSpecialties(vet.vetSpecialties)
+                .build();
     }
 }

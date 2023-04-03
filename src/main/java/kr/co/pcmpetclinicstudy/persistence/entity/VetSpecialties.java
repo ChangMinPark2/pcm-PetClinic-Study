@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
 
 @Getter
 @NoArgsConstructor
@@ -18,7 +17,7 @@ public class VetSpecialties extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vets_id")
-    private Vets vets;
+    private Vet vets;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "specialties_id")
