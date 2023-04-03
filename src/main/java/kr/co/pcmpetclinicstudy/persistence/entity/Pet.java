@@ -3,6 +3,7 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import kr.co.pcmpetclinicstudy.service.model.PetsTypes;
+import kr.co.pcmpetclinicstudy.service.model.request.PetDto.CreatePetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.PetDto.ReadPetDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +18,7 @@ import java.time.LocalDate;
         name = "id",
         column = @Column(name = "pets_id", length = 4)
 )
-public class Pets extends BaseEntity {
+public class Pet extends BaseEntity {
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
@@ -33,17 +34,36 @@ public class Pets extends BaseEntity {
     private Owners owners;
 
     @Builder
-    public Pets(LocalDate birthDate,
-                String name,
-                Owners owners,
-                PetsTypes petsTypes) {
+    public Pet(LocalDate birthDate,
+               String name,
+               Owners owners,
+               PetsTypes petsTypes) {
         this.birthDate = birthDate;
         this.name = name;
         this.owners = owners;
         this.petsTypes = petsTypes;
     }
 
-    public static ReadPetDto of(Pets pets){
+    public static Pet of(CreatePetDto createPetDto){
+        return Pet.builder()
+                .birthDate(createPetDto.getBirthDate())
+                .name(createPetDto.getName())
+                .owners(createPetDto.getOwners())
+                .petsTypes(createPetDto.getPetsTypes())
+                .build();
+    }
+
+    public void updatePet(LocalDate birthDate,
+                          String name,
+                          Owners owners,
+                          PetsTypes petsTypes){
+        this.birthDate = birthDate;
+        this.name = name;
+        this.owners = owners;
+        this.petsTypes = petsTypes;
+    }
+
+    public static ReadPetDto of(Pet pets){
         return ReadPetDto.builder()
                 .birthDate(pets.birthDate)
                 .name(pets.name)

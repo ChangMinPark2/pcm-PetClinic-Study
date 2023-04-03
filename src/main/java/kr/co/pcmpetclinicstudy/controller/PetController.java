@@ -1,37 +1,38 @@
 package kr.co.pcmpetclinicstudy.controller;
 
+import jakarta.validation.Valid;
 import kr.co.pcmpetclinicstudy.service.model.request.PetDto.CreatePetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.PetDto.DeletePetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.PetDto.ReadPetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.PetDto.UpdatePetDto;
-import kr.co.pcmpetclinicstudy.service.service.PetsService;
+import kr.co.pcmpetclinicstudy.service.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/pets")
-public class PetsController {
+public class PetController {
 
-    private final PetsService petsService;
+    private final PetService petsService;
 
-    @PostMapping("/create")
-    public void createPet(CreatePetDto createPetDto){
+    @PostMapping
+    public void createPet(@RequestBody @Valid CreatePetDto createPetDto){
         petsService.createPet(createPetDto);
     }
 
-    @PutMapping("/update")
-    public void updatePet(UpdatePetDto updatePetDto){
-        petsService.UpdatePet(updatePetDto);
+    @PutMapping
+    public void updatePet(@RequestBody @Valid UpdatePetDto updatePetDto){
+        petsService.updatePet(updatePetDto);
     }
 
-    @DeleteMapping("/delete")
-    public void deletePet(DeletePetDto deletePetDto){
+    @DeleteMapping
+    public void deletePet(@RequestBody @Valid DeletePetDto deletePetDto){
         petsService.deletePet(deletePetDto);
     }
 
-    @GetMapping("/read")
-    public ReadPetDto readPet(@RequestParam("identity") String identity){
-      return petsService.readPet(identity);
+    @GetMapping
+    public ReadPetDto readPet(@RequestParam("id") Long id){
+      return petsService.readPet(id);
     }
 }
