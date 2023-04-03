@@ -2,7 +2,7 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
-import kr.co.pcmpetclinicstudy.service.model.Specialties;
+import kr.co.pcmpetclinicstudy.service.model.request.vetDto.CreateVetDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,8 +31,18 @@ public class Vets extends BaseEntity {
 
     @Builder
     public Vets(String firstName,
-                String lastName) {
+                String lastName,
+                List<VetSpecialties> vetSpecialties) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.vetSpecialties = vetSpecialties;
+    }
+
+    public static Vets of(CreateVetDto createVetDto){
+        return Vets.builder()
+                .firstName(createVetDto.getFirstName())
+                .lastName(createVetDto.getLastName())
+                .vetSpecialties(createVetDto.getVetSpecialties())
+                .build();
     }
 }
