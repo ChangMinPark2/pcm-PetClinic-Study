@@ -2,6 +2,7 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
+import kr.co.pcmpetclinicstudy.service.model.request.visitDto.ReadVisitDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.time.LocalDate;
         name = "id",
         column = @Column(name = "visits_id", length = 4)
 )
-public class Visits extends BaseEntity {
+public class Visit extends BaseEntity {
 
     @Column(name = "description", length = 50)
     private String description;
@@ -28,11 +29,25 @@ public class Visits extends BaseEntity {
     private Pet pets;
 
     @Builder
-    public Visits(String description,
-                  LocalDate visitDate,
-                  Pet pets) {
+    public Visit(String description,
+                 LocalDate visitDate,
+                 Pet pets) {
         this.description = description;
         this.visitDate = visitDate;
         this.pets = pets;
+    }
+
+    public void updateVisit(String description, LocalDate visitDate, Pet pet){
+        this.description = description;
+        this.visitDate = visitDate;
+        this.pets = pet;
+    }
+
+    public static ReadVisitDto of(Visit visit){
+        return ReadVisitDto.builder()
+                .description(visit.description)
+                .visitDate(visit.visitDate)
+                .pets(visit.pets)
+                .build();
     }
 }
