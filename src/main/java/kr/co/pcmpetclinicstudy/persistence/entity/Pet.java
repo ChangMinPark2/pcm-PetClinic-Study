@@ -3,8 +3,8 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import kr.co.pcmpetclinicstudy.service.model.PetsTypes;
-import kr.co.pcmpetclinicstudy.service.model.request.PetDto.CreatePetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.PetDto.ReadPetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.petDto.CreatePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.petDto.ReadPetDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,12 +31,12 @@ public class Pet extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owners_id")
-    private Owners owners;
+    private Owner owners;
 
     @Builder
     public Pet(LocalDate birthDate,
                String name,
-               Owners owners,
+               Owner owners,
                PetsTypes petsTypes) {
         this.birthDate = birthDate;
         this.name = name;
@@ -55,7 +55,7 @@ public class Pet extends BaseEntity {
 
     public void updatePet(LocalDate birthDate,
                           String name,
-                          Owners owners,
+                          Owner owners,
                           PetsTypes petsTypes){
         this.birthDate = birthDate;
         this.name = name;

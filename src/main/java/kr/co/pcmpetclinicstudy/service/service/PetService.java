@@ -1,13 +1,13 @@
 package kr.co.pcmpetclinicstudy.service.service;
 
-import kr.co.pcmpetclinicstudy.persistence.entity.Owners;
+import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
-import kr.co.pcmpetclinicstudy.persistence.repository.OwnersRepository;
+import kr.co.pcmpetclinicstudy.persistence.repository.OwnerRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
-import kr.co.pcmpetclinicstudy.service.model.request.PetDto.CreatePetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.PetDto.DeletePetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.PetDto.ReadPetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.PetDto.UpdatePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.petDto.CreatePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.petDto.DeletePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.petDto.ReadPetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.petDto.UpdatePetDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +18,11 @@ public class PetService {
 
     private final PetRepository petRepository;
 
-    private final OwnersRepository ownersRepository;
+    private final OwnerRepository ownersRepository;
 
     public void createPet(CreatePetDto createPetDto){
 
-        final Owners owners = ownersRepository.findById(createPetDto.getId())
+        final Owner owners = ownersRepository.findById(createPetDto.getId())
                 .orElseThrow(() -> new RuntimeException("Not Found Owner"));
 
         final Pet petBuild = Pet.of(createPetDto);

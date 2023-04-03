@@ -1,10 +1,10 @@
 package kr.co.pcmpetclinicstudy.controller;
 
 import jakarta.validation.Valid;
-import kr.co.pcmpetclinicstudy.service.model.request.PetDto.CreatePetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.PetDto.DeletePetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.PetDto.ReadPetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.PetDto.UpdatePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.petDto.CreatePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.petDto.DeletePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.petDto.ReadPetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.petDto.UpdatePetDto;
 import kr.co.pcmpetclinicstudy.service.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

@@ -1,13 +1,13 @@
-package kr.co.pcmpetclinicstudy.service.model.request.PetDto;
+package kr.co.pcmpetclinicstudy.service.model.request.petDto;
 
 import jakarta.validation.constraints.NotBlank;
-import kr.co.pcmpetclinicstudy.persistence.entity.Owners;
+import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.service.model.PetsTypes;
 import lombok.Getter;
 import java.time.LocalDate;
 
 @Getter
-public class UpdatePetDto {
+public class CreatePetDto {
 
     @NotBlank(message = "id를 입력해주세요")
     private Long id;
@@ -22,5 +22,5 @@ public class UpdatePetDto {
     private PetsTypes petsTypes;
 
     @NotBlank(message = "주인의 id를 입력해주세요")
-    private Owners owners;
+    private Owner owners;
 }

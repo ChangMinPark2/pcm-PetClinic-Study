@@ -1,6 +1,5 @@
-package kr.co.pcmpetclinicstudy.service.model.request.OwnerDto;
+package kr.co.pcmpetclinicstudy.service.model.request.ownerDto;
 
-import jakarta.persistence.Column;
 import lombok.Builder;
 
 @Builder

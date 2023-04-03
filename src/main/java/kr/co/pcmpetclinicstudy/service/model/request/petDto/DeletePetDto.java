@@ -1,4 +1,4 @@
-package kr.co.pcmpetclinicstudy.service.model.request.PetDto;
+package kr.co.pcmpetclinicstudy.service.model.request.petDto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
