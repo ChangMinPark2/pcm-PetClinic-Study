@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class CreateVetDto {
+public class UpdateVetDto {
 
     @NotNull(message = "이름을 입력해주세요.")
     private String firstName;

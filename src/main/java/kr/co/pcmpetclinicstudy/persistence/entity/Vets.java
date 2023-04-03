@@ -45,4 +45,12 @@ public class Vets extends BaseEntity {
                 .vetSpecialties(createVetDto.getVetSpecialties())
                 .build();
     }
+
+    public void updateVet(String firstName,
+                          String lastName,
+                          List<VetSpecialties> vetSpecialties){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.vetSpecialties = vetSpecialties;
+    }
 }
