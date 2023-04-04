@@ -1,6 +1,8 @@
 package kr.co.pcmpetclinicstudy.service.service;
 
+import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
 import kr.co.pcmpetclinicstudy.persistence.entity.Visit;
+import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VisitRepository;
 import kr.co.pcmpetclinicstudy.service.model.request.vetDto.ReadVetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.visitDto.CreateVisitDto;
@@ -17,13 +19,14 @@ public class VisitService {
 
     private final VisitRepository visitRepository;
 
+    private final PetRepository petRepository;
+
     public void createVisit(CreateVisitDto createVisitDto){
 
-        Visit visitBuild = Visit.builder()
-                .visitDate(createVisitDto.getVisitDate())
-                .description(createVisitDto.getDescription())
-                .pets(createVisitDto.getPets())
-                .build();
+        final Pet pet = petRepository.findById(createVisitDto.getPetId())
+                .orElseThrow(() -> new RuntimeException("Not Found Pet"));
+
+        final Visit visitBuild = Visit.of(createVisitDto, pet);
 
         visitRepository.save(visitBuild);
     }

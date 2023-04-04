@@ -2,6 +2,7 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
+import kr.co.pcmpetclinicstudy.service.model.request.visitDto.CreateVisitDto;
 import kr.co.pcmpetclinicstudy.service.model.request.visitDto.ReadVisitDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,6 +36,14 @@ public class Visit extends BaseEntity {
         this.description = description;
         this.visitDate = visitDate;
         this.pets = pets;
+    }
+
+    public static Visit of(CreateVisitDto createVisitDto, Pet pet){
+        return Visit.builder()
+                .description(createVisitDto.getDescription())
+                .visitDate(createVisitDto.getVisitDate())
+                .pets(pet)
+                .build();
     }
 
     public void updateVisit(String description, LocalDate visitDate, Pet pet){
