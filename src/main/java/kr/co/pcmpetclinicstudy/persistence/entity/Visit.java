@@ -50,7 +50,7 @@ public class Visit extends BaseEntity {
         return ReadVisitDto.builder()
                 .description(visit.description)
                 .visitDate(visit.visitDate)
-                .pets(visit.pets)
+                .petName(visit.pets.getName())
                 .build();
     }
 }
