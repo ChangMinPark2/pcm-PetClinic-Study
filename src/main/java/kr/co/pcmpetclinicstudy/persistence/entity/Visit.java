@@ -38,18 +38,12 @@ public class Visit extends BaseEntity {
         this.pets = pets;
     }
 
-    public static Visit of(CreateVisitDto createVisitDto, Pet pet){
+    public static Visit of(CreateVisitDto createVisitDto, Pet pets){
         return Visit.builder()
                 .description(createVisitDto.getDescription())
                 .visitDate(createVisitDto.getVisitDate())
-                .pets(pet)
+                .pets(pets)
                 .build();
-    }
-
-    public void updateVisit(String description, LocalDate visitDate, Pet pet){
-        this.description = description;
-        this.visitDate = visitDate;
-        this.pets = pet;
     }
 
     public static ReadVisitDto of(Visit visit){

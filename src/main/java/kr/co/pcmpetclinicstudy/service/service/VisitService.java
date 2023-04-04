@@ -4,11 +4,9 @@ import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
 import kr.co.pcmpetclinicstudy.persistence.entity.Visit;
 import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VisitRepository;
-import kr.co.pcmpetclinicstudy.service.model.request.vetDto.ReadVetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.visitDto.CreateVisitDto;
 import kr.co.pcmpetclinicstudy.service.model.request.visitDto.DeleteVisitDto;
 import kr.co.pcmpetclinicstudy.service.model.request.visitDto.ReadVisitDto;
-import kr.co.pcmpetclinicstudy.service.model.request.visitDto.UpdateVisitDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,18 +27,6 @@ public class VisitService {
         final Visit visitBuild = Visit.of(createVisitDto, pet);
 
         visitRepository.save(visitBuild);
-    }
-
-    public void updateVisit(UpdateVisitDto updateVisitDto){
-
-        Visit visit = visitRepository.findById(updateVisitDto.getId())
-                .orElseThrow(() -> new RuntimeException("Not Found Visit"));
-
-        visit.updateVisit(updateVisitDto.getDescription(),
-                updateVisitDto.getVisitDate(),
-                updateVisitDto.getPets());
-
-        visitRepository.save(visit);
     }
 
     @Transactional(readOnly = true)
