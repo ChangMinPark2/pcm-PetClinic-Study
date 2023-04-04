@@ -27,11 +27,11 @@ public class Pet extends BaseEntity {
     private String name;
 
     @Column(name = "pets_types")
-    private PetsTypes petsTypes;
+    private PetsTypes petsType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owners_id")
-    private Owner owners;
+    private Owner owner;
 
     @Builder
     public Pet(LocalDate birthDate,
@@ -40,16 +40,16 @@ public class Pet extends BaseEntity {
                PetsTypes petsTypes) {
         this.birthDate = birthDate;
         this.name = name;
-        this.owners = owners;
-        this.petsTypes = petsTypes;
+        this.owner = owners;
+        this.petsType = petsTypes;
     }
 
-    public static Pet of(CreatePetDto createPetDto){
+    public static Pet of(CreatePetDto createPetDto, Owner owner){
         return Pet.builder()
                 .birthDate(createPetDto.getBirthDate())
                 .name(createPetDto.getName())
-                .owners(createPetDto.getOwners())
-                .petsTypes(createPetDto.getPetsTypes())
+                .owners(owner)
+                .petsTypes(PetsTypes.valueOf(createPetDto.getPetsTypes()))
                 .build();
     }
 
@@ -59,16 +59,16 @@ public class Pet extends BaseEntity {
                           PetsTypes petsTypes){
         this.birthDate = birthDate;
         this.name = name;
-        this.owners = owners;
-        this.petsTypes = petsTypes;
+        this.owner = owners;
+        this.petsType = petsTypes;
     }
 
     public static ReadPetDto of(Pet pets){
         return ReadPetDto.builder()
                 .birthDate(pets.birthDate)
                 .name(pets.name)
-                .owners(pets.owners)
-                .petsTypes(pets.petsTypes)
+                .owners(pets.owner)
+                .petsTypes(pets.petsType)
                 .build();
     }
 }

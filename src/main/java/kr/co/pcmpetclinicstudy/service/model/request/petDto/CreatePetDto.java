@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class CreatePetDto {
 
     @NotBlank(message = "id를 입력해주세요")
-    private Long id;
+    private Long ownerId;
 
     @NotBlank(message = "생년 월일을 입력해주세요")
     private LocalDate birthDate;
@@ -19,8 +19,6 @@ public class CreatePetDto {
     private String name;
 
     @NotBlank(message = "애완동물의 종류를 입력해주세요")
-    private PetsTypes petsTypes;
+    private String petsTypes;
 
-    @NotBlank(message = "주인의 id를 입력해주세요")
-    private Owner owners;
 }

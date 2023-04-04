@@ -22,17 +22,17 @@ public class PetService {
 
     public void createPet(CreatePetDto createPetDto){
 
-        final Owner owners = ownersRepository.findById(createPetDto.getId())
+        final Owner owners = ownersRepository.findById(createPetDto.getOwnerId())
                 .orElseThrow(() -> new RuntimeException("Not Found Owner"));
 
-        final Pet petBuild = Pet.of(createPetDto);
+        final Pet petBuild = Pet.of(createPetDto, owners);
 
         petRepository.save(petBuild);
     }
 
     public void updatePet(UpdatePetDto updatePetDto){
 
-        Pet pet = petRepository.findById(updatePetDto.getId())
+        Pet pet = petRepository.findById(updatePetDto.getPetId())
                 .orElseThrow(() -> new RuntimeException("Not Found Pet"));
 
         pet.updatePet(updatePetDto.getBirthDate(), updatePetDto.getName(),

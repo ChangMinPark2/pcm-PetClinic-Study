@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class UpdatePetDto {
 
     @NotBlank(message = "id를 입력해주세요")
-    private Long id;
+    private Long petId;
 
     @NotBlank(message = "생년 월일을 입력해주세요")
     private LocalDate birthDate;
