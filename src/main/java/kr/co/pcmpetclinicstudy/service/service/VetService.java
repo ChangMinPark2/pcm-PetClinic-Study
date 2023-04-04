@@ -32,7 +32,7 @@ public class VetService {
     }
 
     public void deleteVet(DeleteVetDto deleteVetDto){
-        Vet vets = vetRepository.findById(deleteVetDto.getId())
+        final Vet vets = vetRepository.findById(deleteVetDto.getId())
                 .orElseThrow(() -> new RuntimeException("Not Found Vet"));
 
         vetRepository.delete(vets);
