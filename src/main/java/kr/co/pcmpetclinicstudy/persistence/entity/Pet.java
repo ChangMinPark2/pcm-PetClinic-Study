@@ -55,12 +55,10 @@ public class Pet extends BaseEntity {
 
     public void updatePet(LocalDate birthDate,
                           String name,
-                          Owner owners,
-                          PetsTypes petsTypes){
+                          String petsTypes){
         this.birthDate = birthDate;
         this.name = name;
-        this.owner = owners;
-        this.petsType = petsTypes;
+        this.petsType = PetsTypes.valueOf(petsTypes);
     }
 
     public static ReadPetDto of(Pet pets){

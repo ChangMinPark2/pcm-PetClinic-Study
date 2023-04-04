@@ -19,8 +19,5 @@ public class UpdatePetDto {
     private String name;
 
     @NotBlank(message = "애완동물의 종류를 입력해주세요")
-    private PetsTypes petsTypes;
-
-    @NotBlank(message = "주인의 id를 입력해주세요")
-    private Owner owners;
+    private String petsTypes;
 }

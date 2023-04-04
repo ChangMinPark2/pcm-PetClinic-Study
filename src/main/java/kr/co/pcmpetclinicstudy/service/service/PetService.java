@@ -4,6 +4,7 @@ import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
 import kr.co.pcmpetclinicstudy.persistence.repository.OwnerRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
+import kr.co.pcmpetclinicstudy.service.model.PetsTypes;
 import kr.co.pcmpetclinicstudy.service.model.request.petDto.CreatePetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.petDto.DeletePetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.petDto.ReadPetDto;
@@ -35,8 +36,7 @@ public class PetService {
         Pet pet = petRepository.findById(updatePetDto.getPetId())
                 .orElseThrow(() -> new RuntimeException("Not Found Pet"));
 
-        pet.updatePet(updatePetDto.getBirthDate(), updatePetDto.getName(),
-                updatePetDto.getOwners(), updatePetDto.getPetsTypes());
+        pet.updatePet(updatePetDto.getBirthDate(), updatePetDto.getName(), updatePetDto.getPetsTypes());
 
         petRepository.save(pet);
     }
