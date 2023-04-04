@@ -11,9 +11,9 @@ public class ReadPetDto {
 
     private LocalDate birthDate;
 
-    private String name;
+    private String petName;
 
-    private PetsTypes petsTypes;
+    private PetsTypes petTypes;
 
-    private Owner owners;
+    private String ownerName;
 }

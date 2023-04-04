@@ -64,9 +64,9 @@ public class Pet extends BaseEntity {
     public static ReadPetDto of(Pet pets){
         return ReadPetDto.builder()
                 .birthDate(pets.birthDate)
-                .name(pets.name)
-                .owners(pets.owner)
-                .petsTypes(pets.petsType)
+                .petName(pets.name)
+                .ownerName(pets.owner.getFirstName() + pets.owner.getLastName())
+                .petTypes(pets.petsType)
                 .build();
     }
 }
