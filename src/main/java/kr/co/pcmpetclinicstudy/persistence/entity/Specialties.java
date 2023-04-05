@@ -10,8 +10,8 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
-@Table
-@Entity(name = "tbl_specialties")
+@Table(name = "tbl_specialties")
+@Entity
 @AttributeOverride(
         name = "id",
         column = @Column(name = "specialties_id", length = 4)
@@ -20,4 +20,5 @@ public class Specialties extends BaseEntity {
 
     @OneToMany(mappedBy = "specialties")
     List<VetSpecialties> vetSpecialties = new ArrayList<>();
+
 }

@@ -29,7 +29,6 @@ public class VisitService {
         visitRepository.save(visitBuild);
     }
 
-    @Transactional(readOnly = true)
     public void deleteVisit(DeleteVisitDto deleteVisitDto){
         final Visit visit = visitRepository.findById(deleteVisitDto.getId())
                 .orElseThrow(() -> new RuntimeException("Not Found Visit"));
@@ -37,6 +36,7 @@ public class VisitService {
         visitRepository.delete(visit);
     }
 
+    @Transactional(readOnly = true)
     public ReadVisitDto readVet(Long id){
         Visit visit = visitRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Not Found Visit"));

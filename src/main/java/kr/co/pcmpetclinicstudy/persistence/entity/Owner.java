@@ -48,7 +48,7 @@ public class Owner extends BaseEntity {
         this.telephone = telephone;
     }
 
-    public static Owner of(CreateOwnerDto createOwnerDto){
+    public static Owner createOf(CreateOwnerDto createOwnerDto){
         return Owner.builder()
                 .address(createOwnerDto.getAddress())
                 .city(createOwnerDto.getCity())
@@ -58,19 +58,15 @@ public class Owner extends BaseEntity {
                 .build();
     }
 
-    public void updateOwner( String address,
-                             String city,
-                             String firstName,
-                             String lastName,
-                             String telephone){
-        this.address = address;
-        this.city = city;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.telephone = telephone;
+    public void updateOwner( UpdateOwnerDto updateOwnerDto){
+        this.address = updateOwnerDto.getAddress();
+        this.city = updateOwnerDto.getCity();
+        this.firstName = updateOwnerDto.getFirstName();
+        this.lastName = updateOwnerDto.getLastName();
+        this.telephone = updateOwnerDto.getTelephone();
     }
 
-    public static ReadOwnerDto of(Owner owners){
+    public static ReadOwnerDto readOf(Owner owners){
         return ReadOwnerDto.builder()
                 .address(owners.address)
                 .city(owners.city)
