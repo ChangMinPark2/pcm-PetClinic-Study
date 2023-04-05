@@ -40,7 +40,6 @@ public class VisitService {
         visitRepository.delete(visit);
     }
 
-    @Transactional(readOnly = true)
     public List<ReadVisitDto> readVet(Long petId){
 
         final Pet pet = petRepository.findById(petId)
