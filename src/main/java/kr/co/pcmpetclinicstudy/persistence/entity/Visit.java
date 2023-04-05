@@ -38,7 +38,7 @@ public class Visit extends BaseEntity {
         this.pets = pets;
     }
 
-    public static Visit of(CreateVisitDto createVisitDto, Pet pets){
+    public static Visit createOf(CreateVisitDto createVisitDto, Pet pets){
         return Visit.builder()
                 .description(createVisitDto.getDescription())
                 .visitDate(createVisitDto.getVisitDate())
@@ -46,7 +46,7 @@ public class Visit extends BaseEntity {
                 .build();
     }
 
-    public static ReadVisitDto of(Visit visit){
+    public static ReadVisitDto readOf(Visit visit){
         return ReadVisitDto.builder()
                 .description(visit.description)
                 .visitDate(visit.visitDate)

@@ -28,7 +28,7 @@ public class PetController {
     }
 
     @DeleteMapping
-    public void deletePet(@PathVariable (name = "pet_id")Long petId){
+    public void deletePet(@PathVariable (name = "pet_id") Long petId){
         petsService.deletePetById(petId);
     }
 
