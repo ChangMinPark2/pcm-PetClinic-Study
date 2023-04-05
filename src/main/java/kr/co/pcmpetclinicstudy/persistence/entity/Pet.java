@@ -5,6 +5,7 @@ import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import kr.co.pcmpetclinicstudy.service.model.PetsTypes;
 import kr.co.pcmpetclinicstudy.service.model.request.petDto.CreatePetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.petDto.ReadPetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.petDto.UpdatePetDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,7 +45,7 @@ public class Pet extends BaseEntity {
         this.petsType = petsTypes;
     }
 
-    public static Pet of(CreatePetDto createPetDto, Owner owner){
+    public static Pet createOf(CreatePetDto createPetDto, Owner owner){
         return Pet.builder()
                 .birthDate(createPetDto.getBirthDate())
                 .name(createPetDto.getName())
@@ -53,15 +54,13 @@ public class Pet extends BaseEntity {
                 .build();
     }
 
-    public void updatePet(LocalDate birthDate,
-                          String name,
-                          String petsTypes){
-        this.birthDate = birthDate;
-        this.name = name;
-        this.petsType = PetsTypes.valueOf(petsTypes);
+    public void updatePet(UpdatePetDto updatePetDto){
+        this.birthDate = updatePetDto.getBirthDate();
+        this.name = updatePetDto.getName();
+        this.petsType = PetsTypes.valueOf(updatePetDto.getPetsTypes());
     }
 
-    public static ReadPetDto of(Pet pets){
+    public static ReadPetDto readOf(Pet pets){
         return ReadPetDto.builder()
                 .birthDate(pets.birthDate)
                 .petName(pets.name)
