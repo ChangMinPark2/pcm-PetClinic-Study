@@ -2,7 +2,6 @@ package kr.co.pcmpetclinicstudy.controller;
 
 import jakarta.validation.Valid;
 import kr.co.pcmpetclinicstudy.service.model.request.ownerDto.CreateOwnerDto;
-import kr.co.pcmpetclinicstudy.service.model.request.ownerDto.DeleteOwnerDto;
 import kr.co.pcmpetclinicstudy.service.model.request.ownerDto.ReadOwnerDto;
 import kr.co.pcmpetclinicstudy.service.model.request.ownerDto.UpdateOwnerDto;
 import kr.co.pcmpetclinicstudy.service.service.OwnersService;
@@ -27,12 +26,12 @@ public class OwnersController {
     }
 
     @DeleteMapping
-    public void deleteOwner(@RequestBody @Valid DeleteOwnerDto deleteOwnerDto){
-        ownersService.deleteOwner(deleteOwnerDto);
+    public void deleteOwner(@PathVariable(name = "owner_id")Long ownerId){
+        ownersService.deleteOwner(ownerId);
     }
 
     @GetMapping
-    public ReadOwnerDto readOwner(@RequestParam("id") Long id){
-        return ownersService.readOwner(id);
+    public ReadOwnerDto readOwner(@PathVariable(name = "owner_id") Long ownerId){
+        return ownersService.readOwner(ownerId);
     }
 }

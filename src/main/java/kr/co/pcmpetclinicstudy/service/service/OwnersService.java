@@ -3,7 +3,6 @@ package kr.co.pcmpetclinicstudy.service.service;
 import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.persistence.repository.OwnerRepository;
 import kr.co.pcmpetclinicstudy.service.model.request.ownerDto.CreateOwnerDto;
-import kr.co.pcmpetclinicstudy.service.model.request.ownerDto.DeleteOwnerDto;
 import kr.co.pcmpetclinicstudy.service.model.request.ownerDto.ReadOwnerDto;
 import kr.co.pcmpetclinicstudy.service.model.request.ownerDto.UpdateOwnerDto;
 import lombok.RequiredArgsConstructor;
@@ -28,27 +27,27 @@ public class OwnersService {
     @Transactional
     public void updateOwner(UpdateOwnerDto updateOwnerDto){
 
-        Owner owners = ownerRepository.findById(updateOwnerDto.getId())
+        Owner owner = ownerRepository.findById(updateOwnerDto.getId())
                         .orElseThrow(() -> new RuntimeException("Not Found Owner"));
 
-        owners.updateOwner(updateOwnerDto);
+        owner.updateOwner(updateOwnerDto);
 
-        ownerRepository.save(owners);
+        ownerRepository.save(owner);
     }
 
-    public void deleteOwner(DeleteOwnerDto deleteOwnerDto){
+    public void deleteOwner(Long ownerId){
 
-        final Owner owners = ownerRepository.findById(deleteOwnerDto.getId())
+        final Owner owner = ownerRepository.findById(ownerId)
                 .orElseThrow(() -> new RuntimeException("Not Found Owner"));
 
-        ownerRepository.delete(owners);
+        ownerRepository.delete(owner);
     }
 
     @Transactional(readOnly = true)
-    public ReadOwnerDto readOwner(Long id){
-        Owner owners = ownerRepository.findById(id)
+    public ReadOwnerDto readOwner(Long ownerId){
+        Owner owner = ownerRepository.findById(ownerId)
                 .orElseThrow(() -> new RuntimeException("Not Found Owner"));
 
-        return owners.readOf(owners);
+        return owner.readOf(owner);
     }
 }
