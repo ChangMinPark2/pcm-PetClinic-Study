@@ -57,8 +57,9 @@ public class PetService {
         final Owner owner = ownersRepository.findById(ownerId)
                 .orElseThrow(() -> new RuntimeException("Not Found Owner"));
 
-        return petRepository.findByOwner(owner)
-                .stream()
+        final List<Pet> pet = petRepository.findByOwner(owner);
+
+        return pet.stream()
                 .map(Pet::readOf)
                 .collect(Collectors.toList());
     }
