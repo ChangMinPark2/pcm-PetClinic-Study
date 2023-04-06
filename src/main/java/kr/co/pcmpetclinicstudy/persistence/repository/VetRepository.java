@@ -7,5 +7,7 @@ import java.util.Optional;
 
 @Repository
 public interface VetRepository extends JpaRepository<Vet, Long> {
-    Optional<Vet> findById(Long id);
+//    Optional<Vet> findById(Long id);
+    Vet findByFirstNameAndLastName(String firstName, String lastName);
+
 }

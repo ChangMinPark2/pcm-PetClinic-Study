@@ -2,7 +2,6 @@ package kr.co.pcmpetclinicstudy.controller;
 
 import jakarta.validation.Valid;
 import kr.co.pcmpetclinicstudy.service.model.request.vetDto.CreateVetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.vetDto.DeleteVetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.vetDto.ReadVetDto;
 import kr.co.pcmpetclinicstudy.service.model.request.vetDto.UpdateVetDto;
 import kr.co.pcmpetclinicstudy.service.service.VetService;
@@ -27,12 +26,12 @@ public class VetController {
     }
 
     @DeleteMapping
-    public void deleteVet(@RequestBody @Valid DeleteVetDto deleteVetDto){
-        vetsService.deleteVet(deleteVetDto);
+    public void deleteVet(@PathVariable(name = "vet_id")Long vetId){
+        vetsService.deleteVet(vetId);
     }
 
     @GetMapping
-    public ReadVetDto readVetDto(@RequestParam("id") Long id){
+    public ReadVetDto readVetDto(@PathVariable(name = "id") Long id){
         return vetsService.readVetDto(id);
     }
 }

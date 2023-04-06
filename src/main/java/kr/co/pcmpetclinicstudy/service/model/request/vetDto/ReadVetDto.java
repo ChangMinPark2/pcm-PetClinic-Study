@@ -1,16 +1,20 @@
 package kr.co.pcmpetclinicstudy.service.model.request.vetDto;
 
-import kr.co.pcmpetclinicstudy.persistence.entity.VetSpecialties;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import java.util.ArrayList;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class ReadVetDto {
 
     private String firstName;
 
     private String lastName;
 
-    List<VetSpecialties> vetSpecialties = new ArrayList<>();
+    private List<String> specialtiesName;
 }

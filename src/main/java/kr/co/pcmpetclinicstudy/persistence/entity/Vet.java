@@ -38,27 +38,25 @@ public class Vet extends BaseEntity {
         this.vetSpecialties = vetSpecialties;
     }
 
-    public static Vet of(CreateVetDto createVetDto){
+    public static Vet createOf(CreateVetDto createVetDto,
+                               List<VetSpecialties> vetSpecialties){
         return Vet.builder()
                 .firstName(createVetDto.getFirstName())
                 .lastName(createVetDto.getLastName())
-                .vetSpecialties(createVetDto.getVetSpecialties())
+                .vetSpecialties(vetSpecialties)
                 .build();
     }
 
-    public void updateVet(String firstName,
-                          String lastName,
-                          List<VetSpecialties> vetSpecialties){
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public void updateVetSpecialties(List<VetSpecialties> vetSpecialties){
         this.vetSpecialties = vetSpecialties;
     }
 
-    public static ReadVetDto of (Vet vet){
+    public static ReadVetDto readOf (Vet vet,
+                                     List<String> specialtiesName){
         return ReadVetDto.builder()
                 .firstName(vet.firstName)
                 .lastName(vet.lastName)
-                .vetSpecialties(vet.vetSpecialties)
+                .specialtiesName(specialtiesName)
                 .build();
     }
 }

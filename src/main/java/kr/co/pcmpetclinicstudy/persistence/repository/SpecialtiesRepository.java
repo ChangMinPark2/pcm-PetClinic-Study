@@ -9,4 +9,8 @@ import java.util.List;
 @Repository
 public interface SpecialtiesRepository extends JpaRepository<Specialties, Long> {
     List<Specialties> findByVet(Vet vet);
+
+    List<Specialties> findAllByName(List<String> names);
+
+    boolean existsByName(String name);
 }
