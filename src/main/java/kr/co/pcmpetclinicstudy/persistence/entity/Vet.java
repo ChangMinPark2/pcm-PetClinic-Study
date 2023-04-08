@@ -2,8 +2,6 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
-import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
-import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
