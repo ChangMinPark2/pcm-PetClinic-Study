@@ -5,6 +5,7 @@ import kr.co.pcmpetclinicstudy.persistence.entity.Vet;
 import kr.co.pcmpetclinicstudy.persistence.entity.VetSpecialties;
 import kr.co.pcmpetclinicstudy.persistence.repository.SpecialtiesRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VetRepository;
+import kr.co.pcmpetclinicstudy.service.model.mapper.VetMapper;
 import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
 import lombok.RequiredArgsConstructor;
@@ -24,16 +25,18 @@ public class VetService {
 
     private final SpecialtiesRepository specialtiesRepository;
 
+    private final VetMapper vetMapper;
+
     @Transactional
     public void CreateVet(VetReqDto.CREATE create){
 
-        final Vet vetsBuild = Vet.createOf(create, Collections.emptyList());
+        final Vet vet = vetMapper.createOf(create, Collections.emptyList());
 
-        final List<VetSpecialties> vetSpecialties = getOrCreateVetSpecialties(create.getSpecialtiesName(), vetsBuild);
+        final List<VetSpecialties> vetSpecialties = getOrCreateVetSpecialties(create.getSpecialtiesName(), vet);
 
-        vetsBuild.updateVetSpecialties(vetSpecialties);
+        vet.updateVetSpecialties(vetSpecialties);
 
-        vetRepository.save(vetsBuild);
+        vetRepository.save(vet);
     }
 
     @Transactional
@@ -62,7 +65,7 @@ public class VetService {
 
         final List<String> specialtiesName = getSpecialtiesNameByVet(vets);
 
-        return vets.readOf(vets, specialtiesName);
+        return vetMapper.readOf(vets, specialtiesName);
     }
 
     private List<String> getSpecialtiesNameByVet(Vet vet){

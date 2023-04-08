@@ -38,25 +38,25 @@ public class Vet extends BaseEntity {
         this.vetSpecialties = vetSpecialties;
     }
 
-    public static Vet createOf(VetReqDto.CREATE create,
-                               List<VetSpecialties> vetSpecialties){
-        return Vet.builder()
-                .firstName(create.getFirstName())
-                .lastName(create.getLastName())
-                .vetSpecialties(vetSpecialties)
-                .build();
-    }
+//    public static Vet createOf(VetReqDto.CREATE create,
+//                               List<VetSpecialties> vetSpecialties){
+//        return Vet.builder()
+//                .firstName(create.getFirstName())
+//                .lastName(create.getLastName())
+//                .vetSpecialties(vetSpecialties)
+//                .build();
+//    }
 
     public void updateVetSpecialties(List<VetSpecialties> vetSpecialties){
         this.vetSpecialties = vetSpecialties;
     }
 
-    public static VetResDto.READ readOf (Vet vet,
-                                    List<String> specialtiesName){
-        return VetResDto.READ.builder()
-                .firstName(vet.firstName)
-                .lastName(vet.lastName)
-                .specialtiesName(specialtiesName)
-                .build();
-    }
+//    public static VetResDto.READ readOf (Vet vet,
+//                                    List<String> specialtiesName){
+//        return VetResDto.READ.builder()
+//                .firstName(vet.firstName)
+//                .lastName(vet.lastName)
+//                .specialtiesName(specialtiesName)
+//                .build();
+//    }
 }
