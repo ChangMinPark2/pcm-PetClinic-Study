@@ -4,6 +4,7 @@ import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
 import kr.co.pcmpetclinicstudy.persistence.repository.OwnerRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
+import kr.co.pcmpetclinicstudy.service.model.mapper.PetMapper;
 import kr.co.pcmpetclinicstudy.service.model.request.PetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.PetResDto;
 import lombok.RequiredArgsConstructor;
@@ -21,15 +22,17 @@ public class PetService {
 
     private final OwnerRepository ownersRepository;
 
+    private final PetMapper petMapper;
+
     @Transactional
     public void createPet(PetReqDto.CREATE create){
 
-        final Owner owners = ownersRepository.findById(create.getOwnerId())
+        final Owner owner = ownersRepository.findById(create.getOwnerId())
                 .orElseThrow(() -> new RuntimeException("Not Found Owner"));
 
-        final Pet petBuild = Pet.createOf(create, owners);
+        final Pet pet = petMapper.createOf(create, owner);
 
-        petRepository.save(petBuild);
+        petRepository.save(pet);
     }
 
     @Transactional
@@ -59,7 +62,7 @@ public class PetService {
         final List<Pet> pet = petRepository.findByOwner(owner);
 
         return pet.stream()
-                .map(Pet::readOf)
+                .map(petMapper::readOf)
                 .collect(Collectors.toList());
     }
 }

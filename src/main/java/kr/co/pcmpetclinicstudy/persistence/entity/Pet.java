@@ -44,27 +44,10 @@ public class Pet extends BaseEntity {
         this.petsType = petsTypes;
     }
 
-    public static Pet createOf(PetReqDto.CREATE create, Owner owner){
-        return Pet.builder()
-                .birthDate(create.getBirthDate())
-                .name(create.getName())
-                .owners(owner)
-                .petsTypes(PetsTypes.valueOf(create.getPetsTypes()))
-                .build();
-    }
-
     public void updatePet(PetReqDto.UPDATE update){
         this.birthDate = update.getBirthDate();
         this.name = update.getName();
         this.petsType = PetsTypes.valueOf(update.getPetsTypes());
     }
 
-    public static PetResDto.READ readOf(Pet pets){
-        return PetResDto.READ.builder()
-                .birthDate(pets.birthDate)
-                .petName(pets.name)
-                .ownerName(pets.owner.getFirstName() + pets.owner.getLastName())
-                .petTypes(pets.petsType)
-                .build();
-    }
 }
