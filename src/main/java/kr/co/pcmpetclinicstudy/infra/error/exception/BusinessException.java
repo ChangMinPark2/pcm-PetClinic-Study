@@ -1,6 +1,6 @@
-package kr.co.pcmpetclinicstudy.service.model.exception;
+package kr.co.pcmpetclinicstudy.infra.error.exception;
 
-import kr.co.pcmpetclinicstudy.service.model.ErrorCode;
+import kr.co.pcmpetclinicstudy.service.model.enums.ErrorCode;
 import lombok.Getter;
 
 @Getter

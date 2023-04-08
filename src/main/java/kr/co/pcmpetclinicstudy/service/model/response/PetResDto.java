@@ -1,6 +1,6 @@
 package kr.co.pcmpetclinicstudy.service.model.response;
 
-import kr.co.pcmpetclinicstudy.service.model.PetsTypes;
+import kr.co.pcmpetclinicstudy.service.model.enums.PetsTypes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

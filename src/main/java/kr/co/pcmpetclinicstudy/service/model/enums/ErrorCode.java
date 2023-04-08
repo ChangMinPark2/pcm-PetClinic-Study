@@ -1,4 +1,4 @@
-package kr.co.pcmpetclinicstudy.service.model;
+package kr.co.pcmpetclinicstudy.service.model.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

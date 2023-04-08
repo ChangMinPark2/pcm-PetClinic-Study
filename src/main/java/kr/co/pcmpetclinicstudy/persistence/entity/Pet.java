@@ -2,7 +2,7 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
-import kr.co.pcmpetclinicstudy.service.model.PetsTypes;
+import kr.co.pcmpetclinicstudy.service.model.enums.PetsTypes;
 import kr.co.pcmpetclinicstudy.service.model.request.PetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.PetResDto;
 import lombok.Builder;
