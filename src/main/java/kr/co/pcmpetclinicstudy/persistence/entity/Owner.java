@@ -3,7 +3,6 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import kr.co.pcmpetclinicstudy.service.model.request.OwnerReqDto;
-import kr.co.pcmpetclinicstudy.service.model.response.OwnerResDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
