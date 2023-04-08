@@ -2,6 +2,7 @@ package kr.co.pcmpetclinicstudy.service.service;
 
 import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.persistence.repository.OwnerRepository;
+import kr.co.pcmpetclinicstudy.service.model.mapper.OwnerMapper;
 import kr.co.pcmpetclinicstudy.service.model.request.OwnerReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.OwnerResDto;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +16,14 @@ public class OwnersService {
 
     private final OwnerRepository ownerRepository;
 
+    private final OwnerMapper ownerMapper;
+
     @Transactional
     public void createOwner(OwnerReqDto.CREATE create){
 
-        final Owner ownerBuild = Owner.createOf(create);
+        final Owner owner = ownerMapper.createOf(create);
 
-        ownerRepository.save(ownerBuild);
+        ownerRepository.save(owner);
     }
 
     @Transactional
@@ -47,6 +50,6 @@ public class OwnersService {
         Owner owner = ownerRepository.findById(ownerId)
                 .orElseThrow(() -> new RuntimeException("Not Found Owner"));
 
-        return owner.readOf(owner);
+        return ownerMapper.readOf(owner);
     }
 }

@@ -46,16 +46,6 @@ public class Owner extends BaseEntity {
         this.telephone = telephone;
     }
 
-    public static Owner createOf(OwnerReqDto.CREATE create){
-        return Owner.builder()
-                .address(create.getAddress())
-                .city(create.getCity())
-                .firstName(create.getFirstName())
-                .lastName(create.getLastName())
-                .telephone(create.getTelephone())
-                .build();
-    }
-
     public void updateOwner( OwnerReqDto.UPDATE update){
         this.address = update.getAddress();
         this.city = update.getCity();
@@ -64,13 +54,4 @@ public class Owner extends BaseEntity {
         this.telephone = update.getTelephone();
     }
 
-    public static OwnerResDto.READ readOf(Owner owners){
-        return OwnerResDto.READ.builder()
-                .address(owners.address)
-                .city(owners.city)
-                .firstName(owners.firstName)
-                .lastName(owners.lastName)
-                .telephone(owners.telephone)
-                .build();
-    }
 }
