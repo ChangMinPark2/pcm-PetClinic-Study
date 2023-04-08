@@ -24,12 +24,12 @@ public class OwnersController {
         ownersService.updateOwner(update);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{owner_id}")
     public void deleteOwner(@PathVariable(name = "owner_id")Long ownerId){
         ownersService.deleteOwner(ownerId);
     }
 
-    @GetMapping
+    @GetMapping("/{owner_id}")
     public OwnerResDto.READ readOwner(@PathVariable(name = "owner_id") Long ownerId){
         return ownersService.readOwner(ownerId);
     }

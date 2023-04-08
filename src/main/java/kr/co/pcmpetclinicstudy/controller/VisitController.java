@@ -21,12 +21,12 @@ public class VisitController {
         visitsService.createVisit(create);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{visit_id}")
     public void deleteVisit(@PathVariable(name = "visit_id") Long visitId){
         visitsService.deleteVisit(visitId);
     }
 
-    @GetMapping
+    @GetMapping("/{pet_id}")
     public List<VisitResDto.READ> readVisit(@PathVariable("pet_id") Long petId){
         return visitsService.readVet(petId);
     }

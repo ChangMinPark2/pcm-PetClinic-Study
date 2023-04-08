@@ -26,12 +26,12 @@ public class PetController {
         petsService.updatePet(update);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{pet_id}")
     public void deletePet(@PathVariable (name = "pet_id") Long petId){
         petsService.deletePetById(petId);
     }
 
-    @GetMapping
+    @GetMapping("/{owner_id}")
     public List<PetResDto.READ> readPet(@PathVariable(name = "owner_id") Long ownerId){
       return petsService.readPet(ownerId);
     }

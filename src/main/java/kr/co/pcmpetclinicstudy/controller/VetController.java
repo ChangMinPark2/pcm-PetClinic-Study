@@ -24,13 +24,13 @@ public class VetController {
         vetsService.updateVet(update);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{vet_id}")
     public void deleteVet(@PathVariable(name = "vet_id")Long vetId){
         vetsService.deleteVet(vetId);
     }
 
-    @GetMapping
-    public VetResDto.READ readVet(@PathVariable(name = "id") Long id){
-        return vetsService.readVetDto(id);
+    @GetMapping("/{vet_id}")
+    public VetResDto.READ readVet(@PathVariable(name = "vet_id") Long vetId){
+        return vetsService.readVetDto(vetId);
     }
 }
