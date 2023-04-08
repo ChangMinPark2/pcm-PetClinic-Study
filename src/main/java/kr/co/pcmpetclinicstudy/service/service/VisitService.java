@@ -4,6 +4,7 @@ import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
 import kr.co.pcmpetclinicstudy.persistence.entity.Visit;
 import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VisitRepository;
+import kr.co.pcmpetclinicstudy.service.model.mapper.VisitMapper;
 import kr.co.pcmpetclinicstudy.service.model.request.VisitReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.VisitResDto;
 import lombok.RequiredArgsConstructor;
@@ -21,15 +22,17 @@ public class VisitService {
 
     private final PetRepository petRepository;
 
+    private final VisitMapper visitMapper;
+
     @Transactional
     public void createVisit(VisitReqDto.CREATE create){
 
         final Pet pet = petRepository.findById(create.getPetId())
                 .orElseThrow(() -> new RuntimeException("Not Found Pet"));
 
-        final Visit visitBuild = Visit.createOf(create, pet);
+        final Visit visit = visitMapper.createOf(create, pet);
 
-        visitRepository.save(visitBuild);
+        visitRepository.save(visit);
     }
 
     @Transactional
@@ -48,7 +51,7 @@ public class VisitService {
         final List<Visit> visit = visitRepository.findByPet(pet);
 
         return visit.stream()
-                .map(Visit::readOf)
+                .map(visitMapper::readOf)
                 .collect(Collectors.toList());
     }
 }
