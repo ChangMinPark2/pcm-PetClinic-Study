@@ -4,8 +4,8 @@ import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
 import kr.co.pcmpetclinicstudy.persistence.entity.Visit;
 import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VisitRepository;
-import kr.co.pcmpetclinicstudy.service.model.request.visitDto.CreateVisitDto;
-import kr.co.pcmpetclinicstudy.service.model.request.visitDto.ReadVisitDto;
+import kr.co.pcmpetclinicstudy.service.model.request.VisitReqDto;
+import kr.co.pcmpetclinicstudy.service.model.response.VisitResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +22,12 @@ public class VisitService {
     private final PetRepository petRepository;
 
     @Transactional
-    public void createVisit(CreateVisitDto createVisitDto){
+    public void createVisit(VisitReqDto.CREATE create){
 
-        final Pet pet = petRepository.findById(createVisitDto.getPetId())
+        final Pet pet = petRepository.findById(create.getPetId())
                 .orElseThrow(() -> new RuntimeException("Not Found Pet"));
 
-        final Visit visitBuild = Visit.createOf(createVisitDto, pet);
+        final Visit visitBuild = Visit.createOf(create, pet);
 
         visitRepository.save(visitBuild);
     }
@@ -40,7 +40,7 @@ public class VisitService {
         visitRepository.delete(visit);
     }
 
-    public List<ReadVisitDto> readVet(Long petId){
+    public List<VisitResDto.READ> readVet(Long petId){
 
         final Pet pet = petRepository.findById(petId)
                 .orElseThrow(() -> new RuntimeException("Not Found Pet"));

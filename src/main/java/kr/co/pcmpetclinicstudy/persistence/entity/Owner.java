@@ -2,10 +2,8 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
-import kr.co.pcmpetclinicstudy.service.model.request.ownerDto.CreateOwnerDto;
-import kr.co.pcmpetclinicstudy.service.model.request.ownerDto.ReadOwnerDto;
-import kr.co.pcmpetclinicstudy.service.model.request.ownerDto.UpdateOwnerDto;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.CreatePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.OwnerReqDto;
+import kr.co.pcmpetclinicstudy.service.model.response.OwnerResDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,26 +46,26 @@ public class Owner extends BaseEntity {
         this.telephone = telephone;
     }
 
-    public static Owner createOf(CreateOwnerDto createOwnerDto){
+    public static Owner createOf(OwnerReqDto.CREATE create){
         return Owner.builder()
-                .address(createOwnerDto.getAddress())
-                .city(createOwnerDto.getCity())
-                .firstName(createOwnerDto.getFirstName())
-                .lastName(createOwnerDto.getLastName())
-                .telephone(createOwnerDto.getTelephone())
+                .address(create.getAddress())
+                .city(create.getCity())
+                .firstName(create.getFirstName())
+                .lastName(create.getLastName())
+                .telephone(create.getTelephone())
                 .build();
     }
 
-    public void updateOwner( UpdateOwnerDto updateOwnerDto){
-        this.address = updateOwnerDto.getAddress();
-        this.city = updateOwnerDto.getCity();
-        this.firstName = updateOwnerDto.getFirstName();
-        this.lastName = updateOwnerDto.getLastName();
-        this.telephone = updateOwnerDto.getTelephone();
+    public void updateOwner( OwnerReqDto.UPDATE update){
+        this.address = update.getAddress();
+        this.city = update.getCity();
+        this.firstName = update.getFirstName();
+        this.lastName = update.getLastName();
+        this.telephone = update.getTelephone();
     }
 
-    public static ReadOwnerDto readOf(Owner owners){
-        return ReadOwnerDto.builder()
+    public static OwnerResDto.READ readOf(Owner owners){
+        return OwnerResDto.READ.builder()
                 .address(owners.address)
                 .city(owners.city)
                 .firstName(owners.firstName)

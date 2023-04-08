@@ -3,9 +3,8 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import kr.co.pcmpetclinicstudy.service.model.PetsTypes;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.CreatePetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.ReadPetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.UpdatePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.PetReqDto;
+import kr.co.pcmpetclinicstudy.service.model.response.PetResDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,23 +44,23 @@ public class Pet extends BaseEntity {
         this.petsType = petsTypes;
     }
 
-    public static Pet createOf(CreatePetDto createPetDto, Owner owner){
+    public static Pet createOf(PetReqDto.CREATE create, Owner owner){
         return Pet.builder()
-                .birthDate(createPetDto.getBirthDate())
-                .name(createPetDto.getName())
+                .birthDate(create.getBirthDate())
+                .name(create.getName())
                 .owners(owner)
-                .petsTypes(PetsTypes.valueOf(createPetDto.getPetsTypes()))
+                .petsTypes(PetsTypes.valueOf(create.getPetsTypes()))
                 .build();
     }
 
-    public void updatePet(UpdatePetDto updatePetDto){
-        this.birthDate = updatePetDto.getBirthDate();
-        this.name = updatePetDto.getName();
-        this.petsType = PetsTypes.valueOf(updatePetDto.getPetsTypes());
+    public void updatePet(PetReqDto.UPDATE update){
+        this.birthDate = update.getBirthDate();
+        this.name = update.getName();
+        this.petsType = PetsTypes.valueOf(update.getPetsTypes());
     }
 
-    public static ReadPetDto readOf(Pet pets){
-        return ReadPetDto.builder()
+    public static PetResDto.READ readOf(Pet pets){
+        return PetResDto.READ.builder()
                 .birthDate(pets.birthDate)
                 .petName(pets.name)
                 .ownerName(pets.owner.getFirstName() + pets.owner.getLastName())

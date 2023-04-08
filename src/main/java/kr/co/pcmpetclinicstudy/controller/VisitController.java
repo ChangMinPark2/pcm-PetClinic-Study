@@ -1,9 +1,8 @@
 package kr.co.pcmpetclinicstudy.controller;
 
 import jakarta.validation.Valid;
-import kr.co.pcmpetclinicstudy.service.model.request.visitDto.CreateVisitDto;
-import kr.co.pcmpetclinicstudy.service.model.request.visitDto.DeleteVisitDto;
-import kr.co.pcmpetclinicstudy.service.model.request.visitDto.ReadVisitDto;
+import kr.co.pcmpetclinicstudy.service.model.request.VisitReqDto;
+import kr.co.pcmpetclinicstudy.service.model.response.VisitResDto;
 import kr.co.pcmpetclinicstudy.service.service.VisitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +17,8 @@ public class VisitController {
     private final VisitService visitsService;
 
     @PostMapping
-    public void createVisit(@RequestBody @Valid CreateVisitDto createVisitDto){
-        visitsService.createVisit(createVisitDto);
+    public void createVisit(@RequestBody @Valid VisitReqDto.CREATE create){
+        visitsService.createVisit(create);
     }
 
     @DeleteMapping
@@ -28,7 +27,7 @@ public class VisitController {
     }
 
     @GetMapping
-    public List<ReadVisitDto> readVisit(@PathVariable("pet_id") Long petId){
+    public List<VisitResDto.READ> readVisit(@PathVariable("pet_id") Long petId){
         return visitsService.readVet(petId);
     }
 }

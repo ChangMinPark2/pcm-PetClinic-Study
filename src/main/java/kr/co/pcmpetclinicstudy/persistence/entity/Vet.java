@@ -2,8 +2,8 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
-import kr.co.pcmpetclinicstudy.service.model.request.vetDto.CreateVetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.vetDto.ReadVetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
+import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,11 +38,11 @@ public class Vet extends BaseEntity {
         this.vetSpecialties = vetSpecialties;
     }
 
-    public static Vet createOf(CreateVetDto createVetDto,
+    public static Vet createOf(VetReqDto.CREATE create,
                                List<VetSpecialties> vetSpecialties){
         return Vet.builder()
-                .firstName(createVetDto.getFirstName())
-                .lastName(createVetDto.getLastName())
+                .firstName(create.getFirstName())
+                .lastName(create.getLastName())
                 .vetSpecialties(vetSpecialties)
                 .build();
     }
@@ -51,9 +51,9 @@ public class Vet extends BaseEntity {
         this.vetSpecialties = vetSpecialties;
     }
 
-    public static ReadVetDto readOf (Vet vet,
-                                     List<String> specialtiesName){
-        return ReadVetDto.builder()
+    public static VetResDto.READ readOf (Vet vet,
+                                    List<String> specialtiesName){
+        return VetResDto.READ.builder()
                 .firstName(vet.firstName)
                 .lastName(vet.lastName)
                 .specialtiesName(specialtiesName)

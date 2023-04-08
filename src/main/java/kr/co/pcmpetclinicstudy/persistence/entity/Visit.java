@@ -2,8 +2,8 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
-import kr.co.pcmpetclinicstudy.service.model.request.visitDto.CreateVisitDto;
-import kr.co.pcmpetclinicstudy.service.model.request.visitDto.ReadVisitDto;
+import kr.co.pcmpetclinicstudy.service.model.request.VisitReqDto;
+import kr.co.pcmpetclinicstudy.service.model.response.VisitResDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,16 +38,16 @@ public class Visit extends BaseEntity {
         this.pets = pets;
     }
 
-    public static Visit createOf(CreateVisitDto createVisitDto, Pet pets){
+    public static Visit createOf(VisitReqDto.CREATE create, Pet pets){
         return Visit.builder()
-                .description(createVisitDto.getDescription())
-                .visitDate(createVisitDto.getVisitDate())
+                .description(create.getDescription())
+                .visitDate(create.getVisitDate())
                 .pets(pets)
                 .build();
     }
 
-    public static ReadVisitDto readOf(Visit visit){
-        return ReadVisitDto.builder()
+    public static VisitResDto.READ readOf(Visit visit){
+        return VisitResDto.READ.builder()
                 .description(visit.description)
                 .visitDate(visit.visitDate)
                 .petName(visit.pets.getName())

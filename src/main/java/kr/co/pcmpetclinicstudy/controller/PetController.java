@@ -1,9 +1,8 @@
 package kr.co.pcmpetclinicstudy.controller;
 
 import jakarta.validation.Valid;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.CreatePetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.ReadPetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.UpdatePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.PetReqDto;
+import kr.co.pcmpetclinicstudy.service.model.response.PetResDto;
 import kr.co.pcmpetclinicstudy.service.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +17,13 @@ public class PetController {
     private final PetService petsService;
 
     @PostMapping
-    public void createPet(@RequestBody @Valid CreatePetDto createPetDto){
-        petsService.createPet(createPetDto);
+    public void createPet(@RequestBody @Valid PetReqDto.CREATE create){
+        petsService.createPet(create);
     }
 
     @PutMapping
-    public void updatePet(@RequestBody @Valid UpdatePetDto updatePetDto){
-        petsService.updatePet(updatePetDto);
+    public void updatePet(@RequestBody @Valid PetReqDto.UPDATE update){
+        petsService.updatePet(update);
     }
 
     @DeleteMapping
@@ -33,7 +32,7 @@ public class PetController {
     }
 
     @GetMapping
-    public List<ReadPetDto> readPet(@PathVariable(name = "owner_id") Long ownerId){
+    public List<PetResDto.READ> readPet(@PathVariable(name = "owner_id") Long ownerId){
       return petsService.readPet(ownerId);
     }
 }

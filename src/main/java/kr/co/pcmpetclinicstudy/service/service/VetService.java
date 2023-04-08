@@ -5,13 +5,11 @@ import kr.co.pcmpetclinicstudy.persistence.entity.Vet;
 import kr.co.pcmpetclinicstudy.persistence.entity.VetSpecialties;
 import kr.co.pcmpetclinicstudy.persistence.repository.SpecialtiesRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VetRepository;
-import kr.co.pcmpetclinicstudy.service.model.request.vetDto.CreateVetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.vetDto.ReadVetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.vetDto.UpdateVetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
+import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -27,11 +25,11 @@ public class VetService {
     private final SpecialtiesRepository specialtiesRepository;
 
     @Transactional
-    public void CreateVet(CreateVetDto createVetDto){
+    public void CreateVet(VetReqDto.CREATE create){
 
-        final Vet vetsBuild = Vet.createOf(createVetDto, Collections.emptyList());
+        final Vet vetsBuild = Vet.createOf(create, Collections.emptyList());
 
-        final List<VetSpecialties> vetSpecialties = getOrCreateVetSpecialties(createVetDto.getSpecialtiesName(), vetsBuild);
+        final List<VetSpecialties> vetSpecialties = getOrCreateVetSpecialties(create.getSpecialtiesName(), vetsBuild);
 
         vetsBuild.updateVetSpecialties(vetSpecialties);
 
@@ -39,11 +37,11 @@ public class VetService {
     }
 
     @Transactional
-    public void updateVet(UpdateVetDto updateVetDto){
-        Vet vets = vetRepository.findById(updateVetDto.getVetId())
+    public void updateVet(VetReqDto.UPDATE update){
+        Vet vets = vetRepository.findById(update.getVetId())
                         .orElseThrow(() -> new RuntimeException("Not Found Vet"));
 
-        final List<VetSpecialties> vetSpecialties = getOrCreateVetSpecialties(updateVetDto.getSpecialtiesName(), vets);
+        final List<VetSpecialties> vetSpecialties = getOrCreateVetSpecialties(update.getSpecialtiesName(), vets);
 
         vets.updateVetSpecialties(vetSpecialties);
 
@@ -58,7 +56,7 @@ public class VetService {
         vetRepository.delete(vets);
     }
 
-    public ReadVetDto readVetDto(Long vetId){
+    public VetResDto.READ readVetDto(Long vetId){
         Vet vets = vetRepository.findById(vetId)
                 .orElseThrow(() -> new RuntimeException("Not Found Vet"));
 

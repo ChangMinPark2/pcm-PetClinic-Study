@@ -4,9 +4,8 @@ import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
 import kr.co.pcmpetclinicstudy.persistence.repository.OwnerRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.CreatePetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.ReadPetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.UpdatePetDto;
+import kr.co.pcmpetclinicstudy.service.model.request.PetReqDto;
+import kr.co.pcmpetclinicstudy.service.model.response.PetResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,23 +22,23 @@ public class PetService {
     private final OwnerRepository ownersRepository;
 
     @Transactional
-    public void createPet(CreatePetDto createPetDto){
+    public void createPet(PetReqDto.CREATE create){
 
-        final Owner owners = ownersRepository.findById(createPetDto.getOwnerId())
+        final Owner owners = ownersRepository.findById(create.getOwnerId())
                 .orElseThrow(() -> new RuntimeException("Not Found Owner"));
 
-        final Pet petBuild = Pet.createOf(createPetDto, owners);
+        final Pet petBuild = Pet.createOf(create, owners);
 
         petRepository.save(petBuild);
     }
 
     @Transactional
-    public void updatePet(UpdatePetDto updatePetDto){
+    public void updatePet(PetReqDto.UPDATE update){
 
-        Pet pet = petRepository.findById(updatePetDto.getPetId())
+        Pet pet = petRepository.findById(update.getPetId())
                 .orElseThrow(() -> new RuntimeException("Not Found Pet"));
 
-        pet.updatePet(updatePetDto);
+        pet.updatePet(update);
 
         petRepository.save(pet);
     }
@@ -53,7 +52,7 @@ public class PetService {
         petRepository.delete(pet);
     }
 
-    public List<ReadPetDto> readPet (Long ownerId){
+    public List<PetResDto.READ> readPet (Long ownerId){
         final Owner owner = ownersRepository.findById(ownerId)
                 .orElseThrow(() -> new RuntimeException("Not Found Owner"));
 
