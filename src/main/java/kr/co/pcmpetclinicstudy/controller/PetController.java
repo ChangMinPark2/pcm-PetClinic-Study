@@ -32,8 +32,8 @@ public class PetController {
         }
     }
 
-    @GetMapping("/{owner_id}")
-    public ResponseFormat<List<PetResDto.READ>> readPet(@PathVariable(name = "owner_id") Long ownerId){
+    @GetMapping("/{owners_id}")
+    public ResponseFormat<List<PetResDto.READ>> readPet(@PathVariable(name = "owners_id") Long ownerId){
         try {
             return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, petsService.readPet(ownerId));
         } catch (OwnerNotFoundException e){
@@ -55,8 +55,8 @@ public class PetController {
         }
     }
 
-    @DeleteMapping("/{pet_id}")
-    public ResponseFormat<Void> deletePet(@PathVariable (name = "pet_id") Long petId){
+    @DeleteMapping("/{pets_id}")
+    public ResponseFormat<Void> deletePet(@PathVariable (name = "pets_id") Long petId){
         try{
             petsService.deletePetById(petId);
             return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);

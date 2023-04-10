@@ -36,11 +36,11 @@ public class Pet extends BaseEntity {
     public Pet(LocalDate birthDate,
                String petName,
                PetsTypes petsTypes,
-               Owner owners) {
+               Owner owner) {
         this.birthDate = birthDate;
         this.petName = petName;
         this.petsType = petsTypes;
-        this.owner = owners;
+        this.owner = owner;
     }
 
     public void updatePet(PetReqDto.UPDATE update){

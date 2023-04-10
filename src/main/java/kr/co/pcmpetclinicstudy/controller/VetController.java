@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import kr.co.pcmpetclinicstudy.controller.infra.error.exception.VetNotFoundException;
 import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.controller.infra.error.model.ResponseFormat;
-import kr.co.pcmpetclinicstudy.persistence.entity.Vet;
 import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
 

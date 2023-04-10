@@ -27,8 +27,8 @@ public class OwnersController {
         }
     }
 
-    @GetMapping("/{owner_id}")
-    public ResponseFormat<OwnerResDto.READ> readOwner(@PathVariable(name = "owner_id") Long ownerId){
+    @GetMapping("/{owners_id}")
+    public ResponseFormat<OwnerResDto.READ> readOwner(@PathVariable(name = "owners_id") Long ownerId){
         try {
             return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, ownersService.readOwner(ownerId));
         } catch (OwnerNotFoundException e){
@@ -50,8 +50,8 @@ public class OwnersController {
         }
     }
 
-    @DeleteMapping("/{owner_id}")
-    public ResponseFormat<Void> deleteOwner(@PathVariable(name = "owner_id")Long ownerId){
+    @DeleteMapping("/{owners_id}")
+    public ResponseFormat<Void> deleteOwner(@PathVariable(name = "owners_id")Long ownerId){
         try {
             ownersService.deleteOwner(ownerId);
             return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);

@@ -25,7 +25,7 @@ public class Vet extends BaseEntity {
     private String lastName;
 
     @OneToMany(
-            mappedBy = "vets",
+            mappedBy = "vet",
             fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}
     ) //vets는 vetSpecialties를 리스트로 가지며, mappedBy를 사용함으로써 vets는 주인이 아님을 알려준다.

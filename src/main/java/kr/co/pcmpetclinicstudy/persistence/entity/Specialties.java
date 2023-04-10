@@ -19,11 +19,11 @@ import java.util.List;
 )
 public class Specialties extends BaseEntity {
 
-    @Column(name = "name", length = 20)
+    @Column(name = "specialties_name", length = 80)
     private String SpecialtiesName;
 
     @Builder
-    public Specialties(String  specialtiesName) {
+    private Specialties(String specialtiesName) {
         this.SpecialtiesName = specialtiesName;
     }
 }

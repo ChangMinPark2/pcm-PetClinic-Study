@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 public class VetReqDto {
+
     @NoArgsConstructor
     @Getter
     @AllArgsConstructor
