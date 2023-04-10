@@ -1,5 +1,9 @@
 package kr.co.pcmpetclinicstudy.service.service;
 
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.OwnerNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.PetNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ResponseFormat;
 import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
 import kr.co.pcmpetclinicstudy.persistence.repository.OwnerRepository;
@@ -28,18 +32,29 @@ public class PetService {
     public void createPet(PetReqDto.CREATE create){
 
         final Owner owner = ownersRepository.findById(create.getOwnerId())
-                .orElseThrow(() -> new RuntimeException("Not Found Owner"));
+                .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
 
         final Pet pet = petMapper.toPetEntity(create, owner);
 
         petRepository.save(pet);
     }
 
+    public List<PetResDto.READ> readPet (Long ownerId){
+        final Owner owner = ownersRepository.findById(ownerId)
+                .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
+
+        final List<Pet> pet = petRepository.findByOwner(owner);
+
+        return pet.stream()
+                .map(petMapper::toReadDto)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public void updatePet(PetReqDto.UPDATE update){
 
         Pet pet = petRepository.findById(update.getPetId())
-                .orElseThrow(() -> new RuntimeException("Not Found Pet"));
+                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
 
         pet.updatePet(update);
 
@@ -50,19 +65,9 @@ public class PetService {
     public void deletePetById(Long petId){
 
         final Pet pet = petRepository.findById(petId)
-                .orElseThrow(() -> new RuntimeException("Not Found Pet"));
+                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
 
         petRepository.delete(pet);
     }
 
-    public List<PetResDto.READ> readPet (Long ownerId){
-        final Owner owner = ownersRepository.findById(ownerId)
-                .orElseThrow(() -> new RuntimeException("Not Found Owner"));
-
-        final List<Pet> pet = petRepository.findByOwner(owner);
-
-        return pet.stream()
-                .map(petMapper::toReadDto)
-                .collect(Collectors.toList());
-    }
 }

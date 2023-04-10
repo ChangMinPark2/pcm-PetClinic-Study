@@ -7,11 +7,11 @@ import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
  * */
 public class PetNotFoundException extends BusinessException{
 
-    PetNotFoundException(ErrorCodeType errorCodeType){
+    public PetNotFoundException(ErrorCodeType errorCodeType){
         super(errorCodeType);
     }
 
-    PetNotFoundException(String message){
+    public PetNotFoundException(String message){
         super(message);
     }
 }

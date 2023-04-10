@@ -1,6 +1,10 @@
 package kr.co.pcmpetclinicstudy.controller;
 
 import jakarta.validation.Valid;
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.OwnerNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.PetNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ResponseFormat;
 import kr.co.pcmpetclinicstudy.service.model.request.PetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.PetResDto;
 import kr.co.pcmpetclinicstudy.service.service.PetService;
@@ -17,22 +21,50 @@ public class PetController {
     private final PetService petsService;
 
     @PostMapping
-    public void createPet(@RequestBody @Valid PetReqDto.CREATE create){
-        petsService.createPet(create);
-    }
-
-    @PutMapping
-    public void updatePet(@RequestBody @Valid PetReqDto.UPDATE update){
-        petsService.updatePet(update);
-    }
-
-    @DeleteMapping("/{pet_id}")
-    public void deletePet(@PathVariable (name = "pet_id") Long petId){
-        petsService.deletePetById(petId);
+    public ResponseFormat<Void> createPet(@RequestBody @Valid PetReqDto.CREATE create){
+        try{
+            petsService.createPet(create);
+            return ResponseFormat.success(ErrorCodeType.SUCCESS_CREATE);
+        } catch (OwnerNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{owner_id}")
-    public List<PetResDto.READ> readPet(@PathVariable(name = "owner_id") Long ownerId){
-      return petsService.readPet(ownerId);
+    public ResponseFormat<List<PetResDto.READ>> readPet(@PathVariable(name = "owner_id") Long ownerId){
+        try {
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, petsService.readPet(ownerId));
+        } catch (OwnerNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
     }
+
+    @PutMapping
+    public ResponseFormat<Void> updatePet(@RequestBody @Valid PetReqDto.UPDATE update){
+        try {
+            petsService.updatePet(update);
+            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
+        } catch (PetNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_PET_FOUND);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/{pet_id}")
+    public ResponseFormat<Void> deletePet(@PathVariable (name = "pet_id") Long petId){
+        try{
+            petsService.deletePetById(petId);
+            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
+        } catch (PetNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_PET_FOUND);
+        } catch (RuntimeException e) {
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
+    }
+
 }
