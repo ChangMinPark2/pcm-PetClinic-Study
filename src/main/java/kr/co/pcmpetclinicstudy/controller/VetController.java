@@ -1,6 +1,10 @@
 package kr.co.pcmpetclinicstudy.controller;
 
 import jakarta.validation.Valid;
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.VetNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ResponseFormat;
+import kr.co.pcmpetclinicstudy.persistence.entity.Vet;
 import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
 
@@ -16,22 +20,48 @@ public class VetController {
     private final VetService vetsService;
 
     @PostMapping
-    public void createVet(@RequestBody @Valid VetReqDto.CREATE create){
-        vetsService.createVet(create);
+    public ResponseFormat<Void> createVet(@RequestBody @Valid VetReqDto.CREATE create){
+        try {
+            vetsService.createVet(create);
+            return ResponseFormat.success(ErrorCodeType.SUCCESS_CREATE);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/{vets_id}")
+    public ResponseFormat<VetResDto.READ> readVet(@PathVariable(name = "vets_id") Long vetId){
+        try {
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, vetsService.readVetDto(vetId));
+        } catch (VetNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_VET_FOUND);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
     }
 
     @PutMapping
-    public void updateVet(@RequestBody @Valid VetReqDto.UPDATE update){
-        vetsService.updateVet(update);
+    public ResponseFormat<Void> updateVet(@RequestBody @Valid VetReqDto.UPDATE update){
+        try {
+            vetsService.updateVet(update);
+            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
+        } catch (VetNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_VET_FOUND);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
     }
 
-    @DeleteMapping("/{vet_id}")
-    public void deleteVet(@PathVariable(name = "vet_id")Long vetId){
-        vetsService.deleteVet(vetId);
+    @DeleteMapping("/{vets_id}")
+    public ResponseFormat<Void> deleteVet(@PathVariable(name = "vets_id")Long vetId){
+        try {
+            vetsService.deleteVet(vetId);
+            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
+        } catch (VetNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_VET_FOUND);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
     }
 
-    @GetMapping("/{vet_id}")
-    public VetResDto.READ readVet(@PathVariable(name = "vet_id") Long vetId){
-        return vetsService.readVetDto(vetId);
-    }
 }

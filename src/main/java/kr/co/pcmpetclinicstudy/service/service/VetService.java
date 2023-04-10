@@ -1,5 +1,7 @@
 package kr.co.pcmpetclinicstudy.service.service;
 
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.VetNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.persistence.entity.Specialties;
 import kr.co.pcmpetclinicstudy.persistence.entity.Vet;
 import kr.co.pcmpetclinicstudy.persistence.entity.VetSpecialties;
@@ -46,8 +48,9 @@ public class VetService {
     }
 
     public VetResDto.READ readVetDto(Long vetId){
+
         final Vet vet = vetRepository.findById(vetId)
-                .orElseThrow(() -> new RuntimeException("Not Found Vet"));
+                .orElseThrow(() -> new VetNotFoundException(ErrorCodeType.FAIL_NOT_VET_FOUND));
 
         final List<String> specialtiesName = getSpecialtiesNameByVet(vet);
 
@@ -56,8 +59,9 @@ public class VetService {
 
     @Transactional
     public void updateVet(VetReqDto.UPDATE update){
+
         Vet vet = vetRepository.findById(update.getVetId())
-                .orElseThrow(() -> new RuntimeException("Not Found Vet"));
+                .orElseThrow(() -> new VetNotFoundException(ErrorCodeType.FAIL_NOT_VET_FOUND));
 
         final List<VetSpecialties> vetSpecialties = getOrCreateVetSpecialties(update.getSpecialtiesName(), vet);
 
@@ -65,13 +69,15 @@ public class VetService {
     }
 
     public void deleteVet(Long vetId){
+
         final Vet vet = vetRepository.findById(vetId)
-                .orElseThrow(() -> new RuntimeException("Not Found Vet"));
+                .orElseThrow(() -> new VetNotFoundException(ErrorCodeType.FAIL_NOT_VET_FOUND));
 
         vetRepository.delete(vet);
     }
 
     private List<String> getSpecialtiesNameByVet(Vet vet){
+
         return vet.getVetSpecialties().stream()
                 .map(VetSpecialties::getSpecialties)
                 .map(Specialties::getSpecialtiesName)
