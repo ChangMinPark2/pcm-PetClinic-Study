@@ -1,5 +1,8 @@
 package kr.co.pcmpetclinicstudy.service.service;
 
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.PetNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.VisitNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
 import kr.co.pcmpetclinicstudy.persistence.entity.Visit;
 import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
@@ -28,7 +31,7 @@ public class VisitService {
     public void createVisit(VisitReqDto.CREATE create){
 
         final Pet pet = petRepository.findById(create.getPetId())
-                .orElseThrow(() -> new RuntimeException("Not Found Pet"));
+                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
 
         final Visit visit = visitMapper.toVisitEntity(create, pet);
 
@@ -38,7 +41,7 @@ public class VisitService {
     @Transactional
     public void deleteVisit(Long visitId){
         final Visit visit = visitRepository.findById(visitId)
-                .orElseThrow(() -> new RuntimeException("Not Found Visit"));
+                .orElseThrow(() -> new VisitNotFoundException(ErrorCodeType.FAIL_NOT_VISIT_FOUND));
 
         visitRepository.delete(visit);
     }
@@ -46,7 +49,7 @@ public class VisitService {
     public List<VisitResDto.READ> readVet(Long petId){
 
         final Pet pet = petRepository.findById(petId)
-                .orElseThrow(() -> new RuntimeException("Not Found Pet"));
+                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
 
         final List<Visit> visit = visitRepository.findByPet(pet);
 
