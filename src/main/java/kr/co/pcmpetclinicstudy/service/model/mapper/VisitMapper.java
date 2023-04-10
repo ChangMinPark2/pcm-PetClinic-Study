@@ -5,11 +5,14 @@ import kr.co.pcmpetclinicstudy.persistence.entity.Visit;
 import kr.co.pcmpetclinicstudy.service.model.request.VisitReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.VisitResDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface VisitMapper {
 
-    Visit createOf(VisitReqDto.CREATE create, Pet pet);
+    VisitMapper INSTANCE = Mappers.getMapper(VisitMapper.class);
 
-    VisitResDto.READ readOf(Visit visit);
+    Visit toVisitEntity(VisitReqDto.CREATE create, Pet pet);
+
+    VisitResDto.READ toReadDto(Visit visit);
 }

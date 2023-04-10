@@ -30,7 +30,7 @@ public class PetService {
         final Owner owner = ownersRepository.findById(create.getOwnerId())
                 .orElseThrow(() -> new RuntimeException("Not Found Owner"));
 
-        final Pet pet = petMapper.createOf(create, owner);
+        final Pet pet = petMapper.toPetEntity(create, owner);
 
         petRepository.save(pet);
     }
@@ -62,7 +62,7 @@ public class PetService {
         final List<Pet> pet = petRepository.findByOwner(owner);
 
         return pet.stream()
-                .map(petMapper::readOf)
+                .map(petMapper::toReadDto)
                 .collect(Collectors.toList());
     }
 }

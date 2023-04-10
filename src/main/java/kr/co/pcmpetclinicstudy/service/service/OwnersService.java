@@ -1,5 +1,7 @@
 package kr.co.pcmpetclinicstudy.service.service;
 
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.OwnerNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.persistence.repository.OwnerRepository;
 import kr.co.pcmpetclinicstudy.service.model.mapper.OwnerMapper;
@@ -21,7 +23,7 @@ public class OwnersService {
     @Transactional
     public void createOwner(OwnerReqDto.CREATE create){
 
-        final Owner owner = ownerMapper.createOf(create);
+        final Owner owner = ownerMapper.toOwnerEntity(create);
 
         ownerRepository.save(owner);
     }
@@ -30,8 +32,7 @@ public class OwnersService {
     public void updateOwner(OwnerReqDto.UPDATE update){
 
         Owner owner = ownerRepository.findById(update.getId())
-                        .orElseThrow(() -> new RuntimeException("Not Found Owner"));
-
+                        .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
         owner.updateOwner(update);
 
         ownerRepository.save(owner);
@@ -40,7 +41,7 @@ public class OwnersService {
     public void deleteOwner(Long ownerId){
 
         final Owner owner = ownerRepository.findById(ownerId)
-                .orElseThrow(() -> new RuntimeException("Not Found Owner"));
+                .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
 
         ownerRepository.delete(owner);
     }
@@ -48,8 +49,8 @@ public class OwnersService {
     @Transactional(readOnly = true)
     public OwnerResDto.READ readOwner(Long ownerId){
         Owner owner = ownerRepository.findById(ownerId)
-                .orElseThrow(() -> new RuntimeException("Not Found Owner"));
+                .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
 
-        return ownerMapper.readOf(owner);
+        return ownerMapper.toReadDto(owner);
     }
 }

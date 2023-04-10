@@ -22,8 +22,8 @@ public class Pet extends BaseEntity {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    @Column(name = "name", length = 30)
-    private String name;
+    @Column(name = "petName", length = 30)
+    private String petName;
 
     @Column(name = "pets_types")
     private PetsTypes petsType;
@@ -34,18 +34,18 @@ public class Pet extends BaseEntity {
 
     @Builder
     public Pet(LocalDate birthDate,
-               String name,
-               Owner owners,
-               PetsTypes petsTypes) {
+               String petName,
+               PetsTypes petsTypes,
+               Owner owners) {
         this.birthDate = birthDate;
-        this.name = name;
-        this.owner = owners;
+        this.petName = petName;
         this.petsType = petsTypes;
+        this.owner = owners;
     }
 
     public void updatePet(PetReqDto.UPDATE update){
         this.birthDate = update.getBirthDate();
-        this.name = update.getName();
+        this.petName = update.getPetName();
         this.petsType = PetsTypes.valueOf(update.getPetsTypes());
     }
 

@@ -30,7 +30,7 @@ public class VisitService {
         final Pet pet = petRepository.findById(create.getPetId())
                 .orElseThrow(() -> new RuntimeException("Not Found Pet"));
 
-        final Visit visit = visitMapper.createOf(create, pet);
+        final Visit visit = visitMapper.toVisitEntity(create, pet);
 
         visitRepository.save(visit);
     }
@@ -51,7 +51,7 @@ public class VisitService {
         final List<Visit> visit = visitRepository.findByPet(pet);
 
         return visit.stream()
-                .map(visitMapper::readOf)
+                .map(visitMapper::toReadDto)
                 .collect(Collectors.toList());
     }
 }

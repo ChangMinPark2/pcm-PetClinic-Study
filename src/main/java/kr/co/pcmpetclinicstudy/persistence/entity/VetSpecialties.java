@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@Table(name = "tbl_vetspecialties")
+@Table(name = "tbl_vets_pecialties")
 @Entity
 @AttributeOverride(
         name = "id",
-        column = @Column(name = "vetspecialties_id", length = 4)
+        column = @Column(name = "vet_specialties_id", length = 4)
 )
 public class VetSpecialties extends BaseEntity {
 

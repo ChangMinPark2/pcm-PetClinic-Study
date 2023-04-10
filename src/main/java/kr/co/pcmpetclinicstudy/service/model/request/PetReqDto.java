@@ -23,7 +23,7 @@ public class PetReqDto {
         private LocalDate birthDate;
 
         @NotBlank(message = "이름을 입력해주세요")
-        private String name;
+        private String petName;
 
         @NotBlank(message = "애완동물의 종류를 입력해주세요")
         private String petsTypes;
@@ -42,7 +42,7 @@ public class PetReqDto {
         private LocalDate birthDate;
 
         @NotBlank(message = "이름을 입력해주세요")
-        private String name;
+        private String petName;
 
         @NotBlank(message = "애완동물의 종류를 입력해주세요")
         private String petsTypes;

@@ -20,21 +20,10 @@ import java.util.List;
 public class Specialties extends BaseEntity {
 
     @Column(name = "name", length = 20)
-    private String name;
+    private String SpecialtiesName;
 
     @Builder
-    public Specialties(String name) {
-        this.name = name;
+    public Specialties(String  specialtiesName) {
+        this.SpecialtiesName = specialtiesName;
     }
-
-    @OneToMany(mappedBy = "specialties")
-    List<VetSpecialties> vetSpecialties = new ArrayList<>();
-
-    public static Specialties paramToEntity(String name){
-
-        return Specialties.builder()
-                .name(name)
-                .build();
-    }
-
 }

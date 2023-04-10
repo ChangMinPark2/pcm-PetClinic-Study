@@ -3,20 +3,21 @@ package kr.co.pcmpetclinicstudy.controller;
 import jakarta.validation.Valid;
 import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
+
 import kr.co.pcmpetclinicstudy.service.service.VetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/vet")
+@RequestMapping("/api/v1/vets")
 public class VetController {
 
     private final VetService vetsService;
 
     @PostMapping
     public void createVet(@RequestBody @Valid VetReqDto.CREATE create){
-        vetsService.CreateVet(create);
+        vetsService.createVet(create);
     }
 
     @PutMapping
