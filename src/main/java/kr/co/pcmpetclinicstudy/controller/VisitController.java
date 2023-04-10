@@ -6,12 +6,11 @@ import kr.co.pcmpetclinicstudy.service.model.response.VisitResDto;
 import kr.co.pcmpetclinicstudy.service.service.VisitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/visit")
+@RequestMapping("/api/v1/visits")
 public class VisitController {
 
     private final VisitService visitsService;

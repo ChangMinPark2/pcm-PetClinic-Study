@@ -4,11 +4,14 @@ import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.service.model.request.OwnerReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.OwnerResDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface OwnerMapper {
 
-    Owner createOf(OwnerReqDto.CREATE create);
+    OwnerMapper INSTANCE = Mappers.getMapper(OwnerMapper.class);
 
-    OwnerResDto.READ readOf(Owner owner);
+    Owner toOwnerEntity(OwnerReqDto.CREATE create);
+
+    OwnerResDto.READ toReadDto(Owner owner);
 }

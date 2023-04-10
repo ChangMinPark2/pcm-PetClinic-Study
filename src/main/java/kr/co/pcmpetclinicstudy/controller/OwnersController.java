@@ -1,6 +1,9 @@
 package kr.co.pcmpetclinicstudy.controller;
 
 import jakarta.validation.Valid;
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.OwnerNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ResponseFormat;
 import kr.co.pcmpetclinicstudy.service.model.request.OwnerReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.OwnerResDto;
 import kr.co.pcmpetclinicstudy.service.service.OwnersService;
@@ -15,22 +18,48 @@ public class OwnersController {
     private final OwnersService ownersService;
 
     @PostMapping
-    public void createOwner(@RequestBody @Valid OwnerReqDto.CREATE create){
-        ownersService.createOwner(create);
-    }
-
-    @PutMapping
-    public void updateOwner(@RequestBody @Valid OwnerReqDto.UPDATE update){
-        ownersService.updateOwner(update);
-    }
-
-    @DeleteMapping("/{owner_id}")
-    public void deleteOwner(@PathVariable(name = "owner_id")Long ownerId){
-        ownersService.deleteOwner(ownerId);
+    public ResponseFormat<Void> createOwner(@RequestBody @Valid OwnerReqDto.CREATE create){
+        try {
+            ownersService.createOwner(create);
+            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{owner_id}")
-    public OwnerResDto.READ readOwner(@PathVariable(name = "owner_id") Long ownerId){
-        return ownersService.readOwner(ownerId);
+    public ResponseFormat<OwnerResDto.READ> readOwner(@PathVariable(name = "owner_id") Long ownerId){
+        try {
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, ownersService.readOwner(ownerId));
+        } catch (OwnerNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
     }
+
+    @PutMapping
+    public ResponseFormat<Void> updateOwner(@RequestBody @Valid OwnerReqDto.UPDATE update){
+        try {
+            ownersService.updateOwner(update);
+            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
+        } catch (OwnerNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/{owner_id}")
+    public ResponseFormat<Void> deleteOwner(@PathVariable(name = "owner_id")Long ownerId){
+        try {
+            ownersService.deleteOwner(ownerId);
+            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
+        } catch (OwnerNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
+    }
+
 }
