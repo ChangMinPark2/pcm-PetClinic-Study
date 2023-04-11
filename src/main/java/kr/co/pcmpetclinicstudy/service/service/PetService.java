@@ -1,9 +1,8 @@
 package kr.co.pcmpetclinicstudy.service.service;
 
-import kr.co.pcmpetclinicstudy.controller.infra.error.exception.OwnerNotFoundException;
-import kr.co.pcmpetclinicstudy.controller.infra.error.exception.PetNotFoundException;
-import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
-import kr.co.pcmpetclinicstudy.controller.infra.error.model.ResponseFormat;
+import kr.co.pcmpetclinicstudy.infra.error.exception.OwnerNotFoundException;
+import kr.co.pcmpetclinicstudy.infra.error.exception.PetNotFoundException;
+import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
 import kr.co.pcmpetclinicstudy.persistence.repository.OwnerRepository;

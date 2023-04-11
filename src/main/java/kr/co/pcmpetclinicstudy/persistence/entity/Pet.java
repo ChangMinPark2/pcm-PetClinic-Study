@@ -22,7 +22,7 @@ public class Pet extends BaseEntity {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    @Column(name = "petName", length = 30)
+    @Column(name = "pet_name", length = 30)
     private String petName;
 
     @Column(name = "pets_types")

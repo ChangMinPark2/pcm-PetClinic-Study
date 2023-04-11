@@ -1,10 +1,10 @@
 package kr.co.pcmpetclinicstudy.controller;
 
 import jakarta.validation.Valid;
-import kr.co.pcmpetclinicstudy.controller.infra.error.exception.OwnerNotFoundException;
-import kr.co.pcmpetclinicstudy.controller.infra.error.exception.PetNotFoundException;
-import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
-import kr.co.pcmpetclinicstudy.controller.infra.error.model.ResponseFormat;
+import kr.co.pcmpetclinicstudy.infra.error.exception.OwnerNotFoundException;
+import kr.co.pcmpetclinicstudy.infra.error.exception.PetNotFoundException;
+import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
+import kr.co.pcmpetclinicstudy.infra.error.model.ResponseFormat;
 import kr.co.pcmpetclinicstudy.service.model.request.PetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.PetResDto;
 import kr.co.pcmpetclinicstudy.service.service.PetService;
