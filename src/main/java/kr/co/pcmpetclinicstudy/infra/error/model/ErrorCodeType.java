@@ -1,4 +1,4 @@
-package kr.co.pcmpetclinicstudy.controller.infra.error.model;
+package kr.co.pcmpetclinicstudy.infra.error.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public enum ErrorCodeType {
     FAIL_BAD_REQUEST("클라이언트의 요청이 잘못되었습니다.", HttpStatus.BAD_REQUEST),
     FAIL_UNAUTHORIZED("클라이언트가 인증되지 않았습니다..", HttpStatus.UNAUTHORIZED),
     FAIL_FORBIDDEN("클라이언트가 요청한 리소스에 접근할 권한이 없습니다.", HttpStatus.FORBIDDEN),
-
+    FAIL_DUPLICATED_PHONENUMBER("이미 존재하는 전화번호입니다.", HttpStatus.BAD_REQUEST),
     //FailNotFound 404 error
     FAIL_NOT_OWNER_FOUND("OWNER를 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
     FAIL_NOT_PET_FOUND("PET을 찾을 수 없습니다.", HttpStatus.NOT_FOUND),

@@ -1,6 +1,6 @@
-package kr.co.pcmpetclinicstudy.controller.infra.error.exception;
+package kr.co.pcmpetclinicstudy.infra.error.exception;
 
-import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
+import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
 import lombok.Getter;
 
 @Getter

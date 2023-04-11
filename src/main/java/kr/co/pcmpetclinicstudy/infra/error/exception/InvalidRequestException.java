@@ -1,6 +1,6 @@
-package kr.co.pcmpetclinicstudy.controller.infra.error.exception;
+package kr.co.pcmpetclinicstudy.infra.error.exception;
 
-import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
+import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
 
 /**
  * 사용자(클라이언트)의 잘못으로 요청이 왔을 때

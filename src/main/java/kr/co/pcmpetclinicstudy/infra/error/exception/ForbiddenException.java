@@ -1,6 +1,7 @@
-package kr.co.pcmpetclinicstudy.controller.infra.error.exception;
+package kr.co.pcmpetclinicstudy.infra.error.exception;
 
-import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
+import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
+
 /**
  * 인증된 사용자가 권한이 없는 리소스에 엑세스하려고 할 때 발생된다.
  * */

@@ -35,6 +35,8 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 
     //test
+    testImplementation 'org.mockito:mockito-inline:3.4.4'
+    testImplementation group: 'junit', name: 'junit'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     //validation
