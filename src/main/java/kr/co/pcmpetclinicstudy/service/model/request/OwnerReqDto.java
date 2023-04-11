@@ -7,8 +7,8 @@ public class OwnerReqDto {
 
     @Getter
     @Builder
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
     public static class CREATE{
 
         @NotBlank(message = "주소를 입력해주세요.")
@@ -29,8 +29,8 @@ public class OwnerReqDto {
 
     @Getter
     @Builder
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
     public static class UPDATE{
 
         @NotBlank(message = "주인 id가 필요합니다.")

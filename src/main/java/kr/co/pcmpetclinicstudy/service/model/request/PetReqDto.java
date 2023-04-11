@@ -9,8 +9,8 @@ public class PetReqDto {
 
     @Getter
     @Builder
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
     public static class CREATE{
 
         @NotBlank(message = "id를 입력해주세요")
@@ -28,8 +28,8 @@ public class PetReqDto {
 
     @Getter
     @Builder
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
     public static class UPDATE{
 
         @NotBlank(message = "id를 입력해주세요")
