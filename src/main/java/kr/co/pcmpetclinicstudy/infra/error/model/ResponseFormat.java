@@ -8,11 +8,19 @@ import org.springframework.http.HttpStatus;
 
 import java.util.Optional;
 
+/**
+ * Http 요청에 대한 응답을 담당하는 클래스.
+ * isSuccessful -> Http 요청이 성공적으로 처리됬는지 -> boolean
+ * data -> Http 요청에 대한 결과 데이터를 포함하는 Optional 객체, 없으면 Optional.empty();
+ * message -> Http 요청 처리 결과 메시지. (errorCode enum에 정의해둔 메시지.)
+ * httpStatus -> Http 요청에 대한 처리 결과 상태코드.
+ * */
 @Getter
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
 public class ResponseFormat<T> {
+
     private boolean isSuccessful;
 
     private Optional<T> data;
@@ -21,6 +29,11 @@ public class ResponseFormat<T> {
 
     private HttpStatus httpStatus;
 
+    /**
+     * success
+     * data -> x
+     * message, Httpstatus -> ErrorcodeType
+     * */
     public static <T> ResponseFormat<T> success(ErrorCodeType errorCode){
 
         return ResponseFormat.<T>builder()
@@ -31,17 +44,11 @@ public class ResponseFormat<T> {
                 .build();
     }
 
-    public static <T> ResponseFormat<T> success(String message,
-                                                HttpStatus status){
-
-        return ResponseFormat.<T>builder()
-                .isSuccessful(true)
-                .data(Optional.empty())
-                .message(message)
-                .httpStatus(status)
-                .build();
-    }
-
+    /**
+     * success
+     * data -> o
+     * message, Httpstatus -> ErrorcodeType
+     * */
     public static <T> ResponseFormat<T> successWithData(ErrorCodeType errorCode,
                                                         T data){
 
@@ -53,18 +60,11 @@ public class ResponseFormat<T> {
                 .build();
     }
 
-    public static <T> ResponseFormat<T> successWithData(String message,
-                                                        HttpStatus status,
-                                                        T data){
-
-        return ResponseFormat.<T>builder()
-                .isSuccessful(true)
-                .data(Optional.ofNullable(data))
-                .message(message)
-                .httpStatus(status)
-                .build();
-    }
-
+    /**
+     * fail
+     * data -> x
+     * message, Httpstatus -> ErrorcodeType
+     * */
     public static <T> ResponseFormat<T> error(ErrorCodeType errorCode){
 
         return ResponseFormat.<T>builder()
@@ -72,17 +72,6 @@ public class ResponseFormat<T> {
                 .data(Optional.empty())
                 .message(errorCode.getMessage())
                 .httpStatus(errorCode.getStatusCode())
-                .build();
-    }
-
-    public static <T> ResponseFormat<T> error(String message,
-                                              HttpStatus status){
-
-        return ResponseFormat.<T>builder()
-                .isSuccessful(false)
-                .data(Optional.empty())
-                .message(message)
-                .httpStatus(status)
                 .build();
     }
 }
