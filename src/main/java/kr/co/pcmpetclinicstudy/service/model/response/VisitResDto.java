@@ -1,17 +1,15 @@
 package kr.co.pcmpetclinicstudy.service.model.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.time.LocalDate;
 
 public class VisitResDto {
 
-    @NoArgsConstructor
     @Getter
-    @AllArgsConstructor
     @Builder
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class READ{
 
         private String description;

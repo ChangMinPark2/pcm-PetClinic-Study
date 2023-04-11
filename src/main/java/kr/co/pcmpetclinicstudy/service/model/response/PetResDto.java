@@ -1,19 +1,16 @@
 package kr.co.pcmpetclinicstudy.service.model.response;
 
 import kr.co.pcmpetclinicstudy.service.model.enums.PetsTypes;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 public class PetResDto {
 
-    @NoArgsConstructor
     @Getter
-    @AllArgsConstructor
     @Builder
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class READ{
 
         private LocalDate birthDate;

@@ -1,19 +1,16 @@
 package kr.co.pcmpetclinicstudy.service.model.request;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 public class PetReqDto {
 
-    @NoArgsConstructor
     @Getter
-    @AllArgsConstructor
     @Builder
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class CREATE{
 
         @NotBlank(message = "id를 입력해주세요")
@@ -29,10 +26,10 @@ public class PetReqDto {
         private String petsTypes;
     }
 
-    @NoArgsConstructor
     @Getter
-    @AllArgsConstructor
     @Builder
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class UPDATE{
 
         @NotBlank(message = "id를 입력해주세요")

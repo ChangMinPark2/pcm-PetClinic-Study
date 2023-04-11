@@ -1,16 +1,13 @@
 package kr.co.pcmpetclinicstudy.service.model.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 public class OwnerResDto {
 
-    @NoArgsConstructor
     @Getter
-    @AllArgsConstructor
     @Builder
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class READ{
 
         private String address;
