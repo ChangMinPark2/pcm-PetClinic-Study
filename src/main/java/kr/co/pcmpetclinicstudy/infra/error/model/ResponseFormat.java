@@ -1,4 +1,4 @@
-package kr.co.pcmpetclinicstudy.controller.infra.error.model;
+package kr.co.pcmpetclinicstudy.infra.error.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
