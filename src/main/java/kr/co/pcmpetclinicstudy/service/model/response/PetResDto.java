@@ -13,6 +13,8 @@ public class PetResDto {
     @AllArgsConstructor(access = AccessLevel.PROTECTED)
     public static class READ{
 
+        private PetsTypes petType;
+
         private LocalDate birthDate;
 
         private String petName;
