@@ -1,17 +1,20 @@
 package kr.co.pcmpetclinicstudy.service.service;
 
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.VetNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.persistence.entity.Specialties;
 import kr.co.pcmpetclinicstudy.persistence.entity.Vet;
 import kr.co.pcmpetclinicstudy.persistence.entity.VetSpecialties;
 import kr.co.pcmpetclinicstudy.persistence.repository.SpecialtiesRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VetRepository;
-import kr.co.pcmpetclinicstudy.service.model.request.vetDto.CreateVetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.vetDto.ReadVetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.vetDto.UpdateVetDto;
+import kr.co.pcmpetclinicstudy.service.model.mapper.SpecialtiesMapper;
+import kr.co.pcmpetclinicstudy.service.model.mapper.VetMapper;
+import kr.co.pcmpetclinicstudy.service.model.mapper.VetSpecialtiesMapper;
+import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
+import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -26,65 +29,72 @@ public class VetService {
 
     private final SpecialtiesRepository specialtiesRepository;
 
+    private final VetMapper vetMapper;
+
+    private final VetSpecialtiesMapper vetSpecialtiesMapper;
+
+    private final SpecialtiesMapper specialtiesMapper;
+
     @Transactional
-    public void CreateVet(CreateVetDto createVetDto){
+    public void createVet(VetReqDto.CREATE create){
 
-        final Vet vetsBuild = Vet.createOf(createVetDto, Collections.emptyList());
+        Vet vet = vetMapper.toVetEntity(create, Collections.emptyList());
 
-        final List<VetSpecialties> vetSpecialties = getOrCreateVetSpecialties(createVetDto.getSpecialtiesName(), vetsBuild);
+        final List<VetSpecialties> vetSpecialties = getOrCreateVetSpecialties(create.getSpecialtiesName(), vet);
 
-        vetsBuild.updateVetSpecialties(vetSpecialties);
+        vet.updateVetSpecialties(vetSpecialties);
 
-        vetRepository.save(vetsBuild);
+        vetRepository.save(vet);
+    }
+
+    public VetResDto.READ readVetDto(Long vetId){
+
+        final Vet vet = vetRepository.findById(vetId)
+                .orElseThrow(() -> new VetNotFoundException(ErrorCodeType.FAIL_NOT_VET_FOUND));
+
+        final List<String> specialtiesName = getSpecialtiesNameByVet(vet);
+
+        return vetMapper.toReadDto(vet, specialtiesName);
     }
 
     @Transactional
-    public void updateVet(UpdateVetDto updateVetDto){
-        Vet vets = vetRepository.findById(updateVetDto.getVetId())
-                        .orElseThrow(() -> new RuntimeException("Not Found Vet"));
+    public void updateVet(VetReqDto.UPDATE update){
 
-        final List<VetSpecialties> vetSpecialties = getOrCreateVetSpecialties(updateVetDto.getSpecialtiesName(), vets);
+        Vet vet = vetRepository.findById(update.getVetId())
+                .orElseThrow(() -> new VetNotFoundException(ErrorCodeType.FAIL_NOT_VET_FOUND));
 
-        vets.updateVetSpecialties(vetSpecialties);
+        final List<VetSpecialties> vetSpecialties = getOrCreateVetSpecialties(update.getSpecialtiesName(), vet);
 
-        vetRepository.save(vets);
+        vet.updateVetSpecialties(vetSpecialties);
     }
 
-    @Transactional
-    public void deleteVet(Long ownerId){
-        final Vet vets = vetRepository.findById(ownerId)
-                .orElseThrow(() -> new RuntimeException("Not Found Vet"));
+    public void deleteVet(Long vetId){
 
-        vetRepository.delete(vets);
-    }
+        final Vet vet = vetRepository.findById(vetId)
+                .orElseThrow(() -> new VetNotFoundException(ErrorCodeType.FAIL_NOT_VET_FOUND));
 
-    public ReadVetDto readVetDto(Long vetId){
-        Vet vets = vetRepository.findById(vetId)
-                .orElseThrow(() -> new RuntimeException("Not Found Vet"));
-
-        final List<String> specialtiesName = getSpecialtiesNameByVet(vets);
-
-        return vets.readOf(vets, specialtiesName);
+        vetRepository.delete(vet);
     }
 
     private List<String> getSpecialtiesNameByVet(Vet vet){
+
         return vet.getVetSpecialties().stream()
                 .map(VetSpecialties::getSpecialties)
-                .map(Specialties::getName)
+                .map(Specialties::getSpecialtiesName)
                 .collect(Collectors.toList());
     }
 
-    private List<Specialties> getOrCreateSpecialtiesByName(List<String> names){
+    private List<Specialties> getOrCreateSpecialtiesByNames(List<String> names){
 
-        final List<Specialties> specialties = specialtiesRepository.findAllByName(names);
+        List<Specialties> specialties = specialtiesRepository.findAllByName(names);
 
         final Set<String> existNames = specialties.stream()
-                .map(Specialties::getName)
+                .map(Specialties::getSpecialtiesName)
                 .collect(Collectors.toSet());
 
         final List<Specialties> createSpecialties = names.stream()
                 .filter(name -> !existNames.contains(name))
-                .map(Specialties::paramToEntity)
+                .map(specialtiesMapper::toSpecialtiesEntity)
                 .collect(Collectors.toList());
 
         specialties.addAll(createSpecialties);
@@ -92,15 +102,13 @@ public class VetService {
         return specialties;
     }
 
-    private List<VetSpecialties> getOrCreateVetSpecialties(List<String> name,
+    private List<VetSpecialties> getOrCreateVetSpecialties(List<String> names,
                                                            Vet vet){
-        final List<Specialties> specialties = getOrCreateSpecialtiesByName(name);
 
-        return specialties.stream()
-                .map(specialties1 -> VetSpecialties.builder()
-                        .specialties(specialties1)
-                        .vets(vet)
-                        .build())
+        final List<Specialties> specialty = getOrCreateSpecialtiesByNames(names);
+
+        return specialty.stream()
+                .map(specialties -> vetSpecialtiesMapper.toVetSpecialtiesEntity(specialties, vet))
                 .collect(Collectors.toList());
     }
 

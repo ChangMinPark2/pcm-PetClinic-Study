@@ -1,11 +1,15 @@
 package kr.co.pcmpetclinicstudy.service.service;
 
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.PetNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.exception.VisitNotFoundException;
+import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
 import kr.co.pcmpetclinicstudy.persistence.entity.Visit;
 import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VisitRepository;
-import kr.co.pcmpetclinicstudy.service.model.request.visitDto.CreateVisitDto;
-import kr.co.pcmpetclinicstudy.service.model.request.visitDto.ReadVisitDto;
+import kr.co.pcmpetclinicstudy.service.model.mapper.VisitMapper;
+import kr.co.pcmpetclinicstudy.service.model.request.VisitReqDto;
+import kr.co.pcmpetclinicstudy.service.model.response.VisitResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,34 +25,36 @@ public class VisitService {
 
     private final PetRepository petRepository;
 
+    private final VisitMapper visitMapper;
+
     @Transactional
-    public void createVisit(CreateVisitDto createVisitDto){
+    public void createVisit(VisitReqDto.CREATE create){
 
-        final Pet pet = petRepository.findById(createVisitDto.getPetId())
-                .orElseThrow(() -> new RuntimeException("Not Found Pet"));
+        final Pet pet = petRepository.findById(create.getPetId())
+                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
 
-        final Visit visitBuild = Visit.createOf(createVisitDto, pet);
+        final Visit visit = visitMapper.toVisitEntity(create, pet);
 
-        visitRepository.save(visitBuild);
+        visitRepository.save(visit);
     }
 
     @Transactional
     public void deleteVisit(Long visitId){
         final Visit visit = visitRepository.findById(visitId)
-                .orElseThrow(() -> new RuntimeException("Not Found Visit"));
+                .orElseThrow(() -> new VisitNotFoundException(ErrorCodeType.FAIL_NOT_VISIT_FOUND));
 
         visitRepository.delete(visit);
     }
 
-    public List<ReadVisitDto> readVet(Long petId){
+    public List<VisitResDto.READ> readVet(Long petId){
 
         final Pet pet = petRepository.findById(petId)
-                .orElseThrow(() -> new RuntimeException("Not Found Pet"));
+                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
 
         final List<Visit> visit = visitRepository.findByPet(pet);
 
         return visit.stream()
-                .map(Visit::readOf)
+                .map(visitMapper::toReadDto)
                 .collect(Collectors.toList());
     }
 }

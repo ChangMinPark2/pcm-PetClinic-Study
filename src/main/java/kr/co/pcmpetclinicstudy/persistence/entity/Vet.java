@@ -2,8 +2,6 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
-import kr.co.pcmpetclinicstudy.service.model.request.vetDto.CreateVetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.vetDto.ReadVetDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,8 +24,12 @@ public class Vet extends BaseEntity {
     @Column(name = "last_name", length = 30)
     private String lastName;
 
-    @OneToMany(mappedBy = "vets") //vets는 vetSpecialties를 리스트로 가지며, mappedBy를 사용함으로써 vets는 주인이 아님을 알려준다.
-    List<VetSpecialties> vetSpecialties = new ArrayList<>();
+    @OneToMany(
+            mappedBy = "vet",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}
+    ) //vets는 vetSpecialties를 리스트로 가지며, mappedBy를 사용함으로써 vets는 주인이 아님을 알려준다.
+    private List<VetSpecialties> vetSpecialties = new ArrayList<>();
 
     @Builder
     public Vet(String firstName,
@@ -38,25 +40,25 @@ public class Vet extends BaseEntity {
         this.vetSpecialties = vetSpecialties;
     }
 
-    public static Vet createOf(CreateVetDto createVetDto,
-                               List<VetSpecialties> vetSpecialties){
-        return Vet.builder()
-                .firstName(createVetDto.getFirstName())
-                .lastName(createVetDto.getLastName())
-                .vetSpecialties(vetSpecialties)
-                .build();
-    }
+//    public static Vet createOf(VetReqDto.CREATE create,
+//                               List<VetSpecialties> vetSpecialties){
+//        return Vet.builder()
+//                .firstName(create.getFirstName())
+//                .lastName(create.getLastName())
+//                .vetSpecialties(vetSpecialties)
+//                .build();
+//    }
 
     public void updateVetSpecialties(List<VetSpecialties> vetSpecialties){
         this.vetSpecialties = vetSpecialties;
     }
 
-    public static ReadVetDto readOf (Vet vet,
-                                     List<String> specialtiesName){
-        return ReadVetDto.builder()
-                .firstName(vet.firstName)
-                .lastName(vet.lastName)
-                .specialtiesName(specialtiesName)
-                .build();
-    }
+//    public static VetResDto.READ readOf (Vet vet,
+//                                    List<String> specialtiesName){
+//        return VetResDto.READ.builder()
+//                .firstName(vet.firstName)
+//                .lastName(vet.lastName)
+//                .specialtiesName(specialtiesName)
+//                .build();
+//    }
 }

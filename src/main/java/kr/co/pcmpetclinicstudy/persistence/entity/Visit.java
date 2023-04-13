@@ -2,8 +2,6 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
-import kr.co.pcmpetclinicstudy.service.model.request.visitDto.CreateVisitDto;
-import kr.co.pcmpetclinicstudy.service.model.request.visitDto.ReadVisitDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,30 +25,14 @@ public class Visit extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pets_id")
-    private Pet pets;
+    private Pet pet;
 
     @Builder
     public Visit(String description,
                  LocalDate visitDate,
-                 Pet pets) {
+                 Pet pet) {
         this.description = description;
         this.visitDate = visitDate;
-        this.pets = pets;
-    }
-
-    public static Visit createOf(CreateVisitDto createVisitDto, Pet pets){
-        return Visit.builder()
-                .description(createVisitDto.getDescription())
-                .visitDate(createVisitDto.getVisitDate())
-                .pets(pets)
-                .build();
-    }
-
-    public static ReadVisitDto readOf(Visit visit){
-        return ReadVisitDto.builder()
-                .description(visit.description)
-                .visitDate(visit.visitDate)
-                .petName(visit.pets.getName())
-                .build();
+        this.pet = pet;
     }
 }

@@ -2,10 +2,8 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
-import kr.co.pcmpetclinicstudy.service.model.PetsTypes;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.CreatePetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.ReadPetDto;
-import kr.co.pcmpetclinicstudy.service.model.request.petDto.UpdatePetDto;
+import kr.co.pcmpetclinicstudy.service.model.enums.PetsTypes;
+import kr.co.pcmpetclinicstudy.service.model.request.PetReqDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +22,8 @@ public class Pet extends BaseEntity {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    @Column(name = "name", length = 30)
-    private String name;
+    @Column(name = "petName", length = 30)
+    private String petName;
 
     @Column(name = "pets_types")
     private PetsTypes petsType;
@@ -36,36 +34,19 @@ public class Pet extends BaseEntity {
 
     @Builder
     public Pet(LocalDate birthDate,
-               String name,
-               Owner owners,
-               PetsTypes petsTypes) {
+               String petName,
+               PetsTypes petsTypes,
+               Owner owner) {
         this.birthDate = birthDate;
-        this.name = name;
-        this.owner = owners;
+        this.petName = petName;
         this.petsType = petsTypes;
+        this.owner = owner;
     }
 
-    public static Pet createOf(CreatePetDto createPetDto, Owner owner){
-        return Pet.builder()
-                .birthDate(createPetDto.getBirthDate())
-                .name(createPetDto.getName())
-                .owners(owner)
-                .petsTypes(PetsTypes.valueOf(createPetDto.getPetsTypes()))
-                .build();
+    public void updatePet(PetReqDto.UPDATE update){
+        this.birthDate = update.getBirthDate();
+        this.petName = update.getPetName();
+        this.petsType = PetsTypes.valueOf(update.getPetsTypes());
     }
 
-    public void updatePet(UpdatePetDto updatePetDto){
-        this.birthDate = updatePetDto.getBirthDate();
-        this.name = updatePetDto.getName();
-        this.petsType = PetsTypes.valueOf(updatePetDto.getPetsTypes());
-    }
-
-    public static ReadPetDto readOf(Pet pets){
-        return ReadPetDto.builder()
-                .birthDate(pets.birthDate)
-                .petName(pets.name)
-                .ownerName(pets.owner.getFirstName() + pets.owner.getLastName())
-                .petTypes(pets.petsType)
-                .build();
-    }
 }

@@ -8,26 +8,26 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@Table(name = "tbl_vetspecialties")
+@Table(name = "tbl_vets_pecialties")
 @Entity
 @AttributeOverride(
         name = "id",
-        column = @Column(name = "vetspecialties_id", length = 4)
+        column = @Column(name = "vet_specialties_id", length = 4)
 )
 public class VetSpecialties extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vets_id")
-    private Vet vets;
+    private Vet vet;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "specialties_id")
     private Specialties specialties;
 
     @Builder
-    public VetSpecialties(Vet vets,
+    public VetSpecialties(Vet vet,
                           Specialties specialties) {
-        this.vets = vets;
+        this.vet = vet;
         this.specialties = specialties;
     }
 }
