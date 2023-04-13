@@ -1,9 +1,9 @@
 package kr.co.pcmpetclinicstudy.controller;
 
 import jakarta.validation.Valid;
-import kr.co.pcmpetclinicstudy.controller.infra.error.exception.OwnerNotFoundException;
-import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
-import kr.co.pcmpetclinicstudy.controller.infra.error.model.ResponseFormat;
+import kr.co.pcmpetclinicstudy.infra.error.exception.OwnerNotFoundException;
+import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
+import kr.co.pcmpetclinicstudy.infra.error.model.ResponseFormat;
 import kr.co.pcmpetclinicstudy.service.model.request.OwnerReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.OwnerResDto;
 import kr.co.pcmpetclinicstudy.service.service.OwnersService;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/owners")
-public class OwnersController {
+public class OwnerController {
 
     private final OwnersService ownersService;
 
