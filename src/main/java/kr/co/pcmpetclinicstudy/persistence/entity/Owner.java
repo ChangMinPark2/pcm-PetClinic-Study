@@ -9,8 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Table(name = "tbl_owners")
 @Entity
+@Table(name = "tbl_owners")
 @NoArgsConstructor (access = AccessLevel.PROTECTED)//기본 생성자 만들기
 @AttributeOverride( //컬럼 명 속성 재 정의
         name = "id",

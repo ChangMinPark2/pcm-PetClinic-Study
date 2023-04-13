@@ -17,5 +17,9 @@ public class VisitResDto {
         private LocalDate visitDate;
 
         private String petName;
+
+        private String ownerFirstName;
+
+        private String ownerLastName;
     }
 }

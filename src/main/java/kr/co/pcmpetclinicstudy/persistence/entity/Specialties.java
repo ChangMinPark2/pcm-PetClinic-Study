@@ -6,6 +6,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_specialties")
@@ -18,10 +20,17 @@ import lombok.NoArgsConstructor;
 public class Specialties extends BaseEntity {
 
     @Column(name = "specialties_name", length = 80)
-    private String SpecialtiesName;
+    private String specialtiesNames;
 
+    @OneToMany(
+            mappedBy = "specialties",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}
+    )
+
+    private List<VetSpecialties> vetSpecialties = new ArrayList<>();
     @Builder
-    private Specialties(String specialtiesName) {
-        this.SpecialtiesName = specialtiesName;
+    private Specialties(String specialtiesNames) {
+        this.specialtiesNames = specialtiesNames;
     }
 }

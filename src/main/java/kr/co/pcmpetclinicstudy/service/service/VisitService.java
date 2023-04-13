@@ -3,9 +3,13 @@ package kr.co.pcmpetclinicstudy.service.service;
 import kr.co.pcmpetclinicstudy.infra.error.exception.PetNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.exception.VisitNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
+import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
+import kr.co.pcmpetclinicstudy.persistence.entity.Vet;
 import kr.co.pcmpetclinicstudy.persistence.entity.Visit;
+import kr.co.pcmpetclinicstudy.persistence.repository.OwnerRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
+import kr.co.pcmpetclinicstudy.persistence.repository.VetRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VisitRepository;
 import kr.co.pcmpetclinicstudy.service.model.mapper.VisitMapper;
 import kr.co.pcmpetclinicstudy.service.model.request.VisitReqDto;
@@ -27,13 +31,23 @@ public class VisitService {
 
     private final VisitMapper visitMapper;
 
+    private final VetRepository vetRepository;
+
+    private final OwnerRepository ownerRepository;
+
     @Transactional
     public void createVisit(VisitReqDto.CREATE create){
 
         final Pet pet = petRepository.findById(create.getPetId())
                 .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
 
-        final Visit visit = visitMapper.toVisitEntity(create, pet);
+        final Vet vet = vetRepository.findById(create.getPetId())
+                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
+
+        final Owner owner = ownerRepository.findById(create.getPetId())
+                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
+
+        final Visit visit = visitMapper.toVisitEntity(create, pet, vet, owner);
 
         visitRepository.save(visit);
     }

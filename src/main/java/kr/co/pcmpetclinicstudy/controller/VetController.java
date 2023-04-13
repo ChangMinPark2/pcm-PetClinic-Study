@@ -6,7 +6,6 @@ import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.infra.error.model.ResponseFormat;
 import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
-
 import kr.co.pcmpetclinicstudy.service.service.VetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
