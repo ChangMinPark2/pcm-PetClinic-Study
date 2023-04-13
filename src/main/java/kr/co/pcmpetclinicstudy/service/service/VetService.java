@@ -90,7 +90,7 @@ public class VetService {
      * */
     private List<Specialties> getOrCreateSpecialtiesByNames(List<String> names){
 
-        List<Specialties> specialties = specialtiesRepository.findAllByName(names);
+        List<Specialties> specialties = specialtiesRepository.findAllBySpecialtiesName(names);
 
         final Set<String> existNames = specialties.stream()//speciallties -> 스트림으로 변환
                 .map(Specialties::getSpecialtiesName) //-> 전문 분야 객체의 이름을 추출

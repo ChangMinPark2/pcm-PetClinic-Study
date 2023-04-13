@@ -1,6 +1,7 @@
 package kr.co.pcmpetclinicstudy.service.model.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class VetReqDto {
         @NotBlank(message = "성을 입력해주세요")
         private String lastName;
 
-        @NotBlank(message = "자격증을 입력해주세요.")
+        @NotEmpty(message = "자격증을 입력해주세요.")
         private List<String> specialtiesName;
     }
 
