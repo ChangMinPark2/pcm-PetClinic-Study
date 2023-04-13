@@ -5,6 +5,7 @@ import kr.co.pcmpetclinicstudy.persistence.entity.VetSpecialties;
 import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface VetMapper {
 
-    VetMapper INSTANCE = Mappers.getMapper(VetMapper.class);
+    //source dto값, target entity값
 
     Vet toVetEntity(VetReqDto.CREATE create, List<VetSpecialties> vetSpecialties);
 

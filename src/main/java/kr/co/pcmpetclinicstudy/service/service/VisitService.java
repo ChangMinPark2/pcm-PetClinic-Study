@@ -1,8 +1,8 @@
 package kr.co.pcmpetclinicstudy.service.service;
 
-import kr.co.pcmpetclinicstudy.controller.infra.error.exception.PetNotFoundException;
-import kr.co.pcmpetclinicstudy.controller.infra.error.exception.VisitNotFoundException;
-import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
+import kr.co.pcmpetclinicstudy.infra.error.exception.PetNotFoundException;
+import kr.co.pcmpetclinicstudy.infra.error.exception.VisitNotFoundException;
+import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.persistence.entity.Pet;
 import kr.co.pcmpetclinicstudy.persistence.entity.Visit;
 import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;

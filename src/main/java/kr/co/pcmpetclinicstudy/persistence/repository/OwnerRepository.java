@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
     Optional<Owner> findById(Long id);
+
+    boolean existsByTelephone(String telephone);
 }

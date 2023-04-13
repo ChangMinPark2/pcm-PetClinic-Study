@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface SpecialtiesRepository extends JpaRepository<Specialties, Long> {
 
-    List<Specialties> findAllByName(List<String> names);
+    List<Specialties> findAllBySpecialtiesName(List<String> names);
 }

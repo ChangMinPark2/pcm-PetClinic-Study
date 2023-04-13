@@ -1,17 +1,14 @@
 package kr.co.pcmpetclinicstudy.service.model.request;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 public class OwnerReqDto {
 
-    @NoArgsConstructor
     @Getter
-    @AllArgsConstructor
     @Builder
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
     public static class CREATE{
 
         @NotBlank(message = "주소를 입력해주세요.")
@@ -30,12 +27,14 @@ public class OwnerReqDto {
         private String telephone;
     }
 
-    @NoArgsConstructor
     @Getter
-    @AllArgsConstructor
     @Builder
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
     public static class UPDATE{
-        private Long id;
+
+        @NotBlank(message = "주인 id가 필요합니다.")
+        private Long ownerId;
 
         private String address;
 
@@ -45,6 +44,7 @@ public class OwnerReqDto {
 
         private String lastName;
 
+        @NotBlank(message = "전화번호를 입력해주세요")
         private String telephone;
 
     }

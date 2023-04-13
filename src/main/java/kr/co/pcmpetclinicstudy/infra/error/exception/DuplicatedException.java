@@ -1,6 +1,6 @@
-package kr.co.pcmpetclinicstudy.controller.infra.error.exception;
+package kr.co.pcmpetclinicstudy.infra.error.exception;
 
-import kr.co.pcmpetclinicstudy.controller.infra.error.model.ErrorCodeType;
+import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
 /**
  * 중복 예외 -> 이미 존재하는 리소스를 생성하려고 할 때
  * */

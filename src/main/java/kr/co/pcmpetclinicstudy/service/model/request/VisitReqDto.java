@@ -1,18 +1,16 @@
 package kr.co.pcmpetclinicstudy.service.model.request;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 public class VisitReqDto {
-    @NoArgsConstructor
+
     @Getter
-    @AllArgsConstructor
     @Builder
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
     public static class CREATE{
 
         private Long petId;
@@ -22,13 +20,5 @@ public class VisitReqDto {
 
         @NotBlank(message = "방문일자를 입력해주세요")
         private LocalDate visitDate;
-    }
-    @NoArgsConstructor
-    @Getter
-    @AllArgsConstructor
-    @Builder
-    public static class DELETE{
-
-        private Long id;
     }
 }

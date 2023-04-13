@@ -2,6 +2,7 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "tbl_vets")
 @AttributeOverride( //컬럼 명 속성 재 정의
@@ -40,25 +41,8 @@ public class Vet extends BaseEntity {
         this.vetSpecialties = vetSpecialties;
     }
 
-//    public static Vet createOf(VetReqDto.CREATE create,
-//                               List<VetSpecialties> vetSpecialties){
-//        return Vet.builder()
-//                .firstName(create.getFirstName())
-//                .lastName(create.getLastName())
-//                .vetSpecialties(vetSpecialties)
-//                .build();
-//    }
-
     public void updateVetSpecialties(List<VetSpecialties> vetSpecialties){
         this.vetSpecialties = vetSpecialties;
     }
 
-//    public static VetResDto.READ readOf (Vet vet,
-//                                    List<String> specialtiesName){
-//        return VetResDto.READ.builder()
-//                .firstName(vet.firstName)
-//                .lastName(vet.lastName)
-//                .specialtiesName(specialtiesName)
-//                .build();
-//    }
 }

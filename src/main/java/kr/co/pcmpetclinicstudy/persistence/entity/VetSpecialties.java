@@ -2,13 +2,14 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
-@Table(name = "tbl_vets_pecialties")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "tbl_vets_specialties")
 @Entity
 @AttributeOverride(
         name = "id",

@@ -3,6 +3,7 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import kr.co.pcmpetclinicstudy.service.model.request.OwnerReqDto;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "tbl_owners")
 @Entity
-@NoArgsConstructor //기본 생성자 만들기
+@NoArgsConstructor (access = AccessLevel.PROTECTED)//기본 생성자 만들기
 @AttributeOverride( //컬럼 명 속성 재 정의
         name = "id",
         column = @Column(name = "owners_id", length = 4)

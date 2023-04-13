@@ -9,5 +9,5 @@ public interface SpecialtiesMapper {
 
     SpecialtiesMapper INSTANCE = Mappers.getMapper(SpecialtiesMapper.class);
 
-    Specialties toSpecialtiesEntity(String name);
+    Specialties toSpecialtiesEntity(String specialtiesName);
 }
