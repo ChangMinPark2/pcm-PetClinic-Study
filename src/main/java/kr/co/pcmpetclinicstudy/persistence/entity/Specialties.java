@@ -27,8 +27,8 @@ public class Specialties extends BaseEntity {
             fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}
     )
-
     private List<VetSpecialties> vetSpecialties = new ArrayList<>();
+
     @Builder
     private Specialties(String specialtiesNames) {
         this.specialtiesNames = specialtiesNames;

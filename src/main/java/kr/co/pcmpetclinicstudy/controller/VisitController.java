@@ -1,6 +1,7 @@
 package kr.co.pcmpetclinicstudy.controller;
 
 import jakarta.validation.Valid;
+import kr.co.pcmpetclinicstudy.infra.error.exception.OwnerNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.exception.PetNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.exception.VisitNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
@@ -31,7 +32,7 @@ public class VisitController {
         }
     }
 
-    @GetMapping("/{pets_id}")
+    @GetMapping("pets/{pets_id}")
     public ResponseFormat<List<VisitResDto.READ>> readVisit(@PathVariable("pets_id") Long petId){
         try {
             return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK,visitsService.readVet(petId));
@@ -41,6 +42,15 @@ public class VisitController {
             return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
         }
 
+    }
+
+    @GetMapping("owners/{owners_id}")
+    public ResponseFormat<List<VisitResDto.READ>> readOwnerToVisit(@PathVariable("owners_id") Long ownerId){
+        try {
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, visitsService.readOwnerToVisit(ownerId));
+        } catch (OwnerNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
+        }
     }
 
     @DeleteMapping("/{visits_id}")

@@ -38,10 +38,10 @@ public class VetService {
     @Transactional
     public void createVet(VetReqDto.CREATE create){
 
-        Vet vet = vetMapper.toVetEntity(create, Collections.emptyList());
+        Vet vet = vetMapper.toVetEntity(create, Collections.emptyList()); //빈 리스트 객체 반환
 
         final List<VetSpecialties> vetSpecialties = getOrCreateVetSpecialties(create.getSpecialtiesName(), vet);
-    // Specialties넣어야하는데 create.specialtiesName
+
         vet.updateVetSpecialties(vetSpecialties);
 
         vetRepository.save(vet);
@@ -92,11 +92,13 @@ public class VetService {
 
         List<Specialties> specialties = specialtiesRepository.findAllBySpecialtiesNamesIn(specialtiesNames);
 
-        final Set<String> existNames = specialties.stream()//speciallties -> 스트림으로 변환
+        final Set<String> existNames = specialties
+                .stream()//speciallties -> 스트림으로 변환
                 .map(Specialties::getSpecialtiesNames) //-> 전문 분야 객체의 이름을 추출
                 .collect(Collectors.toSet()); //중복되지 않은 전문 분야 이름의 set 컬렉션 생성
 
-        final List<Specialties> createSpecialties = specialtiesNames.stream()
+        final List<Specialties> createSpecialties = specialtiesNames
+                .stream()
                 .filter(name -> !existNames.contains(name))// existNames Set 컬렉션에 포함되지 않는 이름만 추출
                 .map(specialtiesMapper::toSpecialtiesEntity) // 해당 이름으로 새로운 전문분야 객체 생성
                 .collect(Collectors.toList());  // 새로운 전문분야 객체 -> createSpecialties 리스트에 저장

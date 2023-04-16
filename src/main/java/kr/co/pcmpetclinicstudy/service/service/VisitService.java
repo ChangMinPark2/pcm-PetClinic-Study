@@ -1,5 +1,6 @@
 package kr.co.pcmpetclinicstudy.service.service;
 
+import kr.co.pcmpetclinicstudy.infra.error.exception.OwnerNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.exception.PetNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.exception.VisitNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
@@ -41,13 +42,10 @@ public class VisitService {
         final Pet pet = petRepository.findById(create.getPetId())
                 .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
 
-        final Vet vet = vetRepository.findById(create.getPetId())
-                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
-
         final Owner owner = ownerRepository.findById(create.getPetId())
                 .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
 
-        final Visit visit = visitMapper.toVisitEntity(create, pet, vet, owner);
+        final Visit visit = visitMapper.toVisitEntity(create, pet, owner);
 
         visitRepository.save(visit);
     }
@@ -58,6 +56,21 @@ public class VisitService {
                 .orElseThrow(() -> new VisitNotFoundException(ErrorCodeType.FAIL_NOT_VISIT_FOUND));
 
         visitRepository.delete(visit);
+    }
+
+    /**
+     * 해당 소유자 방문 정보 리스트 출력
+     * ownerId 찾은 후 owner가 가진 방문정보 리스트를 출력한다.
+     * */
+    public List<VisitResDto.READ> readOwnerToVisit(Long ownerId){
+
+        final Owner owner = ownerRepository.findById(ownerId)
+                .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
+
+        return visitRepository.findByOwnerId(ownerId)
+                .stream()
+                .map(visitMapper::toReadDto)
+                .collect(Collectors.toList());
     }
 
     public List<VisitResDto.READ> readVet(Long petId){

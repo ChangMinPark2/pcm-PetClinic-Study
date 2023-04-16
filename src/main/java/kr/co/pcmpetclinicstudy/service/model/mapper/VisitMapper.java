@@ -16,9 +16,8 @@ public interface VisitMapper {
     @Mapping(target = "visitDate", source = "create.visitDate")
     @Mapping(target = "description", source = "create.description")
     @Mapping(target = "pet", source = "pet")
-    @Mapping(target = "vet", source = "vet")
     @Mapping(target = "owner", source = "owner")
-    Visit toVisitEntity(VisitReqDto.CREATE create, Pet pet, Vet vet, Owner owner);
+    Visit toVisitEntity(VisitReqDto.CREATE create, Pet pet,Owner owner);
 
     @Mapping(target = "visitDate", source = "visit.visitDate")
     @Mapping(target = "description", source = "visit.description")
