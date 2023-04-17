@@ -16,8 +16,7 @@ public interface VetMapper {
 
     @Mapping(target = "firstName", source = "create.firstName")
     @Mapping(target = "lastName", source = "create.lastName")
-    @Mapping(target = "vetSpecialties", source = "vetSpecialties")
-    Vet toVetEntity(VetReqDto.CREATE create, List<VetSpecialties> vetSpecialties);
+    Vet toVetEntity(VetReqDto.CREATE create);
 
 
     @Mapping(target = "firstName", source = "vet.firstName")

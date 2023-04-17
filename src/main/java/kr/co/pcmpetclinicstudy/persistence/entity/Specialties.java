@@ -29,8 +29,13 @@ public class Specialties extends BaseEntity {
     )
     private List<VetSpecialties> vetSpecialties = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vets_id")
+    private Vet vet;
     @Builder
-    private Specialties(String specialtiesNames) {
+    private Specialties(String specialtiesNames,
+                        Vet vet) {
         this.specialtiesNames = specialtiesNames;
+        this.vet = vet;
     }
 }
