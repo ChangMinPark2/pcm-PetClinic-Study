@@ -44,6 +44,7 @@ public class PetService {
 
         final List<Pet> pet = petRepository.findByOwner(owner);
 
+
         return pet.stream()
                 .map(petMapper::toReadDto)
                 .collect(Collectors.toList());
