@@ -34,15 +34,21 @@ public class Pet extends BaseEntity {
     @JoinColumn(name = "owners_id")
     private Owner owner;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vets_id")
+    private Vet vet;
+
     @Builder
     public Pet(LocalDate birthDate,
                String petName,
                PetsTypes petsTypes,
-               Owner owner) {
+               Owner owner,
+               Vet vet) {
         this.birthDate = birthDate;
         this.petName = petName;
         this.petsType = petsTypes;
         this.owner = owner;
+        this.vet = vet;
     }
 
     public void updatePet(PetReqDto.UPDATE update){
@@ -50,5 +56,4 @@ public class Pet extends BaseEntity {
         this.petName = update.getPetName();
         this.petsType = PetsTypes.valueOf(update.getPetsTypes());
     }
-
 }

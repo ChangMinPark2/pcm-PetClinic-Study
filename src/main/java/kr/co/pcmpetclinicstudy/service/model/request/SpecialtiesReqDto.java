@@ -13,4 +13,16 @@ public class SpecialtiesReqDto {
 
         private String specialtiesName;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class  UPDATE{
+        private Long vetId;
+
+        private Long specialtiesId;
+
+        private String specialtiesName;
+    }
 }

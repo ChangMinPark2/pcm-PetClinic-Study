@@ -32,10 +32,15 @@ public class Specialties extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vets_id")
     private Vet vet;
+
     @Builder
     private Specialties(String specialtiesNames,
                         Vet vet) {
         this.specialtiesNames = specialtiesNames;
         this.vet = vet;
+    }
+
+    public void updateSpecialtiesName(String specialtiesNames){
+        this.specialtiesNames = specialtiesNames;
     }
 }

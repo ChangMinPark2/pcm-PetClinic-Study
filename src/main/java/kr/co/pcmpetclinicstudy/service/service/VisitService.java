@@ -2,6 +2,7 @@ package kr.co.pcmpetclinicstudy.service.service;
 
 import kr.co.pcmpetclinicstudy.infra.error.exception.OwnerNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.exception.PetNotFoundException;
+import kr.co.pcmpetclinicstudy.infra.error.exception.VetNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.exception.VisitNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
@@ -42,10 +43,13 @@ public class VisitService {
         final Pet pet = petRepository.findById(create.getPetId())
                 .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
 
-        final Owner owner = ownerRepository.findById(create.getPetId())
-                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
+        final Owner owner = ownerRepository.findById(create.getOwnerId())
+                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
 
-        final Visit visit = visitMapper.toVisitEntity(create, pet, owner);
+        final Vet vet = vetRepository.findById(create.getVetId())
+                .orElseThrow(() -> new VetNotFoundException(ErrorCodeType.FAIL_NOT_VET_FOUND));
+
+        final Visit visit = visitMapper.toVisitEntity(create, pet, owner, vet);
 
         visitRepository.save(visit);
     }
@@ -71,6 +75,13 @@ public class VisitService {
                 .stream()
                 .map(visitMapper::toReadDto)
                 .collect(Collectors.toList());
+    }
+
+    public VisitResDto.READ_DETAIL readDetailVisit(Long visitId){
+        final Visit visit = visitRepository.findById(visitId)
+                .orElseThrow(() -> new VisitNotFoundException(ErrorCodeType.FAIL_NOT_VISIT_FOUND));
+
+        return visitMapper.toReadDetailDto(visit);
     }
 
     public List<VisitResDto.READ> readVet(Long petId){

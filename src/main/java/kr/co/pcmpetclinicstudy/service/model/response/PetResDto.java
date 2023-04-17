@@ -23,4 +23,12 @@ public class PetResDto {
 
         private String ownerName;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class READ_PET_TYPE{
+        private PetsTypes petsTypes;
+    }
 }

@@ -32,15 +32,20 @@ public class Visit extends BaseEntity {
     @JoinColumn(name = "owners_id")
     private Owner owner;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vets_id")
+    private Vet vet;
 
     @Builder
     public Visit(String description,
                  LocalDate visitDate,
                  Pet pet,
-                 Owner owner) {
+                 Owner owner,
+                 Vet vet) {
         this.description = description;
         this.visitDate = visitDate;
         this.pet = pet;
         this.owner = owner;
+        this.vet = vet;
     }
 }

@@ -12,5 +12,4 @@ public class SpecialtiesResDto {
 
         private String specialtiesName;
     }
-
 }

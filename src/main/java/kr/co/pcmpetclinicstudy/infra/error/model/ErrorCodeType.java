@@ -24,7 +24,8 @@ public enum ErrorCodeType {
     FAIL_NOT_OWNER_FOUND("OWNER를 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
     FAIL_NOT_PET_FOUND("PET을 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
     FAIL_NOT_VISIT_FOUND("VISIT을 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
-    FAIL_NOT_VET_FOUND("VET을 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+    FAIL_NOT_VET_FOUND("VET을 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
+    FAIL_NOT_SPECIALTY_FOUND("SPECIALTIES를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
 
 
     private String message;

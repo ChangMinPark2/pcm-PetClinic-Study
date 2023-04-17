@@ -17,10 +17,21 @@ public interface VisitMapper {
     @Mapping(target = "description", source = "create.description")
     @Mapping(target = "pet", source = "pet")
     @Mapping(target = "owner", source = "owner")
-    Visit toVisitEntity(VisitReqDto.CREATE create, Pet pet,Owner owner);
+    @Mapping(target = "vet", source = "vet")
+    Visit toVisitEntity(VisitReqDto.CREATE create, Pet pet,Owner owner, Vet vet);
 
     @Mapping(target = "visitDate", source = "visit.visitDate")
     @Mapping(target = "description", source = "visit.description")
     @Mapping(target = "petName", source = "visit.pet.petName")
     VisitResDto.READ toReadDto(Visit visit);
+
+    @Mapping(target = "petName", source = "visit.pet.petName")
+    @Mapping(target = "description", source = "visit.description")
+    @Mapping(target = "ownerFirstName", source = "visit.owner.firstName")
+    @Mapping(target = "ownerLastName", source = "visit.owner.lastName")
+    @Mapping(target = "ownerTelephone", source = "visit.owner.telephone")
+    @Mapping(target = "vetFirstName", source = "visit.vet.firstName")
+    @Mapping(target = "vetLastName", source = "visit.vet.lastName")
+    @Mapping(target = "visitDate", source = "visit.visitDate")
+    VisitResDto.READ_DETAIL toReadDetailDto(Visit visit);
 }

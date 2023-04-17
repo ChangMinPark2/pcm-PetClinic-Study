@@ -18,6 +18,8 @@ public class VisitReqDto {
 
         private Long ownerId;
 
+        private Long vetId;
+
         @NotBlank(message = "애완동물이 어디가 아픈지 기입해주십시요")
         private String description;
 

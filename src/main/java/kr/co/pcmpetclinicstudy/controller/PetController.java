@@ -42,6 +42,15 @@ public class PetController {
         }
     }
 
+    @GetMapping("/all")
+    public ResponseFormat<List<PetResDto.READ_PET_TYPE>> readPetType(){
+        try {
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, petsService.readPetTypes());
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
+    }
+
     @PutMapping
     public ResponseFormat<Void> updatePet(@RequestBody @Valid PetReqDto.UPDATE update){
         try {

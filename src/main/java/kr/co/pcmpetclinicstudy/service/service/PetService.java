@@ -38,6 +38,9 @@ public class PetService {
         petRepository.save(pet);
     }
 
+    /**
+     * OwnerId를 조회한 후 Owner가 가진 Pet의 정보를 조회한다.
+     * */
     public List<PetResDto.READ> readPet (Long ownerId){
         final Owner owner = ownersRepository.findById(ownerId)
                 .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
@@ -48,6 +51,16 @@ public class PetService {
         return pet.stream()
                 .map(petMapper::toReadDto)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 현재 DB에 저장된 펫의 종류를 모두 조회해준다.
+     * */
+    public List<PetResDto.READ_PET_TYPE> readPetTypes(){
+
+        final List<Pet> pets = petRepository.findAll();
+
+        return pets.stream().map(petMapper::toReadDtoPetTypes).collect(Collectors.toList());
     }
 
     @Transactional

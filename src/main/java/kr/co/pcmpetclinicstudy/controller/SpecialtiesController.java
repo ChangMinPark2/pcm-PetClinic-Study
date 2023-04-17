@@ -1,5 +1,6 @@
 package kr.co.pcmpetclinicstudy.controller;
 
+import kr.co.pcmpetclinicstudy.infra.error.exception.SpecialtiesNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.exception.VetNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.infra.error.model.ResponseFormat;
@@ -28,6 +29,18 @@ public class SpecialtiesController {
         }
     }
 
+    @PutMapping
+    public ResponseFormat<Void> updateSpecialties(@RequestBody  SpecialtiesReqDto.UPDATE update){
+        try {
+            specialtiesService.updateSpecialties(update);
+            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
+        } catch (VetNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_VET_FOUND);
+        } catch (SpecialtiesNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_SPECIALTY_FOUND);
+        }
+    }
+
     @GetMapping("/all")
     public ResponseFormat<List<SpecialtiesResDto.READ>> readAllSpecialties(){
         try {
@@ -44,6 +57,16 @@ public class SpecialtiesController {
             return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, specialtiesService.readSpecialtiesToId(vetId));
         } catch (VetNotFoundException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_NOT_VET_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{specialties_id}")
+    public ResponseFormat<Void> deleteSpecialties(@PathVariable("specialties_id")Long specialtiesId){
+        try {
+            specialtiesService.deleteSpecialties(specialtiesId);
+            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
+        } catch (SpecialtiesNotFoundException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_SPECIALTY_FOUND);
         }
     }
 }
