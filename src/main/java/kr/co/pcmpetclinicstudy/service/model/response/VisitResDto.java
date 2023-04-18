@@ -9,7 +9,7 @@ public class VisitResDto {
     @Getter
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    @AllArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor
     public static class READ{
 
         private String description;
@@ -21,6 +21,8 @@ public class VisitResDto {
         private String ownerFirstName;
 
         private String ownerLastName;
+
+        private String vetFirstName;
     }
 
     @Getter

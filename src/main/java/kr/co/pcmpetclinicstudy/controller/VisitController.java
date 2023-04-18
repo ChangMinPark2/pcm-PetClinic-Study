@@ -12,6 +12,8 @@ import kr.co.pcmpetclinicstudy.service.model.response.VisitResDto;
 import kr.co.pcmpetclinicstudy.service.service.VisitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.Socket;
 import java.util.List;
 
 @RestController
@@ -38,11 +40,23 @@ public class VisitController {
     }
 
     @GetMapping("pets/{pets_id}")
-    public ResponseFormat<List<VisitResDto.READ>> readVisit(@PathVariable("pets_id") Long petId){
+    public ResponseFormat<List<VisitResDto.READ>> readPetToVisit(@PathVariable("pets_id") Long petId){
         try {
-            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK,visitsService.readVet(petId));
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK,visitsService.readPetToVisit(petId));
         } catch (PetNotFoundException e) {
             return ResponseFormat.error(ErrorCodeType.FAIL_NOT_PET_FOUND);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
+
+    }
+
+    @GetMapping("vets/{vets_id}")
+    public ResponseFormat<List<VisitResDto.READ>> readVetToVisit(@PathVariable("vets_id") Long vetId){
+        try {
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK,visitsService.readVetToVisit(vetId));
+        } catch (VetNotFoundException e) {
+            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_VET_FOUND);
         } catch (RuntimeException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
         }
@@ -55,10 +69,12 @@ public class VisitController {
             return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, visitsService.readOwnerToVisit(ownerId));
         } catch (OwnerNotFoundException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
         }
     }
 
-    @GetMapping("visits/{visits_id}")
+    @GetMapping("detail/{visits_id}")
     public ResponseFormat<VisitResDto.READ_DETAIL> readDetailVisit(@PathVariable("visits_id")Long visitId){
         try {
             return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, visitsService.readDetailVisit(visitId));

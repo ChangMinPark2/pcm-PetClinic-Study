@@ -1,6 +1,5 @@
 package kr.co.pcmpetclinicstudy.service.service;
 
-import kr.co.pcmpetclinicstudy.infra.error.exception.DuplicatedException;
 import kr.co.pcmpetclinicstudy.infra.error.exception.SpecialtiesNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.exception.VetNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
