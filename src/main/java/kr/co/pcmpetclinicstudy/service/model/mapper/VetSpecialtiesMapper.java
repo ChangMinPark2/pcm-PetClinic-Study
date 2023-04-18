@@ -10,6 +10,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface VetSpecialtiesMapper {
 
+    @Mapping(target = "vet", source = "vet")
+    @Mapping(target = "specialties", source = "specialties")
     VetSpecialties toVetSpecialtiesEntity(Specialties specialties, Vet vet);
-
 }

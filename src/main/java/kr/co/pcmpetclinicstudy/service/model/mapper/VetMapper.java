@@ -6,7 +6,6 @@ import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
@@ -15,7 +14,13 @@ public interface VetMapper {
 
     //source dto값, target entity값
 
-    Vet toVetEntity(VetReqDto.CREATE create, List<VetSpecialties> vetSpecialties);
+    @Mapping(target = "firstName", source = "create.firstName")
+    @Mapping(target = "lastName", source = "create.lastName")
+    Vet toVetEntity(VetReqDto.CREATE create);
 
+
+    @Mapping(target = "firstName", source = "vet.firstName")
+    @Mapping(target = "lastName", source = "vet.lastName")
+    @Mapping(target = "specialtiesName", source = "specialtiesName")
     VetResDto.READ toReadDto(Vet vet, List<String> specialtiesName);
 }

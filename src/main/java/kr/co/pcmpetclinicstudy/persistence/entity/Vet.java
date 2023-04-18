@@ -25,11 +25,12 @@ public class Vet extends BaseEntity {
     @Column(name = "last_name", length = 30)
     private String lastName;
 
+    //vets는 vetSpecialties를 리스트로 가지며, mappedBy를 사용함으로써 vets는 주인이 아님을 알려준다.
     @OneToMany(
             mappedBy = "vet",
             fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}
-    ) //vets는 vetSpecialties를 리스트로 가지며, mappedBy를 사용함으로써 vets는 주인이 아님을 알려준다.
+    )
     private List<VetSpecialties> vetSpecialties = new ArrayList<>();
 
     @Builder

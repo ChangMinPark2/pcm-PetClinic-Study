@@ -6,7 +6,6 @@ import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.infra.error.model.ResponseFormat;
 import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
-
 import kr.co.pcmpetclinicstudy.service.service.VetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -32,18 +31,6 @@ public class VetController {
     public ResponseFormat<VetResDto.READ> readVet(@PathVariable(name = "vets_id") Long vetId){
         try {
             return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, vetsService.readVetDto(vetId));
-        } catch (VetNotFoundException e){
-            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_VET_FOUND);
-        } catch (RuntimeException e){
-            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
-        }
-    }
-
-    @PutMapping
-    public ResponseFormat<Void> updateVet(@RequestBody @Valid VetReqDto.UPDATE update){
-        try {
-            vetsService.updateVet(update);
-            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
         } catch (VetNotFoundException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_NOT_VET_FOUND);
         } catch (RuntimeException e){

@@ -10,6 +10,7 @@ import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
 import kr.co.pcmpetclinicstudy.service.model.mapper.PetMapper;
 import kr.co.pcmpetclinicstudy.service.model.request.PetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.PetResDto;
+import kr.co.pcmpetclinicstudy.service.model.response.VisitResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,15 +39,27 @@ public class PetService {
         petRepository.save(pet);
     }
 
+    /**
+     * OwnerId를 조회한 후 Owner가 가진 Pet의 정보를 조회한다.
+     * */
     public List<PetResDto.READ> readPet (Long ownerId){
-        final Owner owner = ownersRepository.findById(ownerId)
+        final Owner owner = ownersRepository.findByOwnerId(ownerId)
                 .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
 
-        final List<Pet> pet = petRepository.findByOwner(owner);
-
-        return pet.stream()
+        return petRepository.findByOwnerId(owner.getId())
+                .stream()
                 .map(petMapper::toReadDto)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 현재 DB에 저장된 펫의 종류를 모두 조회해준다.
+     * */
+    public List<PetResDto.READ_PET_TYPE> readPetTypes(){
+
+        final List<Pet> pets = petRepository.findAll();
+
+        return pets.stream().map(petMapper::toReadDtoPetTypes).collect(Collectors.toList());
     }
 
     @Transactional

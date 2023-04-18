@@ -52,7 +52,7 @@ public class OwnersService {
 
     @Transactional(readOnly = true)
     public OwnerResDto.READ readOwner(Long ownerId){
-        Owner owner = ownerRepository.findById(ownerId)
+        Owner owner = ownerRepository.findByOwnerId(ownerId)
                 .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
 
         return ownerMapper.toReadDto(owner);

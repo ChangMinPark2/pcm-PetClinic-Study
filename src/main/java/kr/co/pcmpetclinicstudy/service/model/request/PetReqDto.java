@@ -1,6 +1,7 @@
 package kr.co.pcmpetclinicstudy.service.model.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -13,10 +14,9 @@ public class PetReqDto {
     @AllArgsConstructor(access = AccessLevel.PROTECTED)
     public static class CREATE{
 
-        @NotBlank(message = "id를 입력해주세요")
+        @NotNull(message = "id를 입력해주세요")
         private Long ownerId;
 
-        @NotBlank(message = "생년 월일을 입력해주세요")
         private LocalDate birthDate;
 
         @NotBlank(message = "이름을 입력해주세요")

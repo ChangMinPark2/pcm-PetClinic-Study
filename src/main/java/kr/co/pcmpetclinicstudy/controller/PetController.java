@@ -10,7 +10,6 @@ import kr.co.pcmpetclinicstudy.service.model.response.PetResDto;
 import kr.co.pcmpetclinicstudy.service.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -32,12 +31,21 @@ public class PetController {
         }
     }
 
-    @GetMapping("/{owners_id}")
+    @GetMapping("/owners/{owners_id}")
     public ResponseFormat<List<PetResDto.READ>> readPet(@PathVariable(name = "owners_id") Long ownerId){
         try {
             return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, petsService.readPet(ownerId));
         } catch (OwnerNotFoundException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
+        } catch (RuntimeException e){
+            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/all")
+    public ResponseFormat<List<PetResDto.READ_PET_TYPE>> readPetType(){
+        try {
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, petsService.readPetTypes());
         } catch (RuntimeException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
         }
@@ -56,7 +64,7 @@ public class PetController {
     }
 
     @DeleteMapping("/{pets_id}")
-    public ResponseFormat<Void> deletePet(@PathVariable (name = "pets_id") Long petId){
+    public ResponseFormat<Void> deletePet(@PathVariable(name = "pets_id") Long petId){
         try{
             petsService.deletePetById(petId);
             return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
