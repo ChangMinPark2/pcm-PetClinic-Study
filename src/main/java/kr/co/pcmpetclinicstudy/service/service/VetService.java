@@ -15,9 +15,7 @@ import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,5 +70,4 @@ public class VetService {
                 .map(Specialties::getSpecialtiesNames)
                 .collect(Collectors.toList());
     }
-
 }
