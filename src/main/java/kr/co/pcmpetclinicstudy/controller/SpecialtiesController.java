@@ -1,5 +1,6 @@
 package kr.co.pcmpetclinicstudy.controller;
 
+import jakarta.validation.Valid;
 import kr.co.pcmpetclinicstudy.infra.error.exception.SpecialtiesNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.exception.VetNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
@@ -20,7 +21,7 @@ public class SpecialtiesController {
     private final SpecialtiesService specialtiesService;
 
     @PostMapping
-    public ResponseFormat<Void> createSpecialties(@RequestBody SpecialtiesReqDto.CREATE create){
+    public ResponseFormat<Void> createSpecialties(@RequestBody @Valid SpecialtiesReqDto.CREATE create){
         try {
             specialtiesService.createSpecialties(create);
             return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
@@ -30,7 +31,7 @@ public class SpecialtiesController {
     }
 
     @PutMapping
-    public ResponseFormat<Void> updateSpecialties(@RequestBody  SpecialtiesReqDto.UPDATE update){
+    public ResponseFormat<Void> updateSpecialties(@RequestBody @Valid SpecialtiesReqDto.UPDATE update){
         try {
             specialtiesService.updateSpecialties(update);
             return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
