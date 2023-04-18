@@ -10,7 +10,43 @@ public class VisitResDto {
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor
-    public static class READ{
+    public static class READ_OWNER{
+
+        private String description;
+
+        private LocalDate visitDate;
+
+        private String petName;
+
+        private String vetFirstName;
+
+        private String vetLastName;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor
+    public static class READ_PET{
+
+        private String description;
+
+        private LocalDate visitDate;
+
+        private String ownerFirstName;
+
+        private String ownerLastName;
+
+        private String vetFirstName;
+
+        private String vetLastName;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor
+    public static class READ_VET{
 
         private String description;
 
@@ -21,8 +57,6 @@ public class VisitResDto {
         private String ownerFirstName;
 
         private String ownerLastName;
-
-        private String vetFirstName;
     }
 
     @Getter

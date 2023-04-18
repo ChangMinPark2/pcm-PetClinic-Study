@@ -23,10 +23,24 @@ public interface VisitMapper {
     @Mapping(target = "visitDate", source = "visit.visitDate")
     @Mapping(target = "description", source = "visit.description")
     @Mapping(target = "petName", source = "visit.pet.petName")
+    @Mapping(target = "vetFirstName", source = "visit.vet.firstName")
+    @Mapping(target = "vetLastName", source = "visit.vet.lastName")
+    VisitResDto.READ_OWNER toReadOwner(Visit visit);
+
+    @Mapping(target = "visitDate", source = "visit.visitDate")
+    @Mapping(target = "description", source = "visit.description")
     @Mapping(target = "ownerFirstName", source = "visit.owner.firstName")
     @Mapping(target = "ownerLastName", source = "visit.owner.lastName")
     @Mapping(target = "vetFirstName", source = "visit.vet.firstName")
-    VisitResDto.READ toReadDto(Visit visit);
+    @Mapping(target = "vetLastName", source = "visit.vet.lastName")
+    VisitResDto.READ_PET toReadPet(Visit visit);
+
+    @Mapping(target = "visitDate", source = "visit.visitDate")
+    @Mapping(target = "description", source = "visit.description")
+    @Mapping(target = "petName", source = "visit.pet.petName")
+    @Mapping(target = "ownerFirstName", source = "visit.owner.firstName")
+    @Mapping(target = "ownerLastName", source = "visit.owner.lastName")
+    VisitResDto.READ_VET toReadVet(Visit visit);
 
     @Mapping(target = "petName", source = "visit.pet.petName")
     @Mapping(target = "description", source = "visit.description")

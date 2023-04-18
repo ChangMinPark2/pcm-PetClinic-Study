@@ -65,14 +65,14 @@ public class VisitService {
      * 해당 소유자 방문 정보 리스트 출력
      * ownerId 찾은 후 owner가 가진 방문정보 리스트를 출력한다.
      * */
-    public List<VisitResDto.READ> readOwnerToVisit(Long ownerId){
+    public List<VisitResDto.READ_OWNER> readOwnerToVisit(Long ownerId){
 
         final Owner owner = ownerRepository.findById(ownerId)
                 .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
 
         return visitRepository.findByOwnerId(owner.getId())
                 .stream()
-                .map(visitMapper::toReadDto)
+                .map(visitMapper::toReadOwner)
                 .collect(Collectors.toList());
     }
 
@@ -80,14 +80,14 @@ public class VisitService {
      * 해당 수의사가 방문자 정보 리스트 출력
      * vetId 찾은 후 visit이 가진 방문정보 리스트를 출력한다.
      * */
-    public List<VisitResDto.READ> readVetToVisit(Long vetId){
+    public List<VisitResDto.READ_VET> readVetToVisit(Long vetId){
 
         final Vet vet = vetRepository.findById(vetId)
                 .orElseThrow(() -> new VetNotFoundException(ErrorCodeType.FAIL_NOT_VET_FOUND));
 
         return visitRepository.findByVetId(vet.getId())
                 .stream()
-                .map(visitMapper::toReadDto)
+                .map(visitMapper::toReadVet)
                 .collect(Collectors.toList());
     }
 
@@ -95,14 +95,14 @@ public class VisitService {
      * 해당 애완동물 방문 정보 리스트 출력
      * petId 찾은 후 pet이 가진 방문정보 리스트를 출력한다.
      * */
-    public List<VisitResDto.READ> readPetToVisit(Long petId){
+    public List<VisitResDto.READ_PET> readPetToVisit(Long petId){
 
         final Pet pet = petRepository.findById(petId)
                 .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
 
         return visitRepository.findByPetId(pet.getId())
                 .stream()
-                .map(visitMapper::toReadDto)
+                .map(visitMapper::toReadPet)
                 .collect(Collectors.toList());
     }
 

@@ -19,9 +19,9 @@ public class PetResDto {
 
         private String petName;
 
-        private PetsTypes petTypes;
+        private String ownerFirstName;
 
-        private String ownerName;
+        private String ownerLastName;
     }
 
     @Getter
@@ -29,6 +29,7 @@ public class PetResDto {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor(access = AccessLevel.PROTECTED)
     public static class READ_PET_TYPE{
+
         private PetsTypes petsTypes;
     }
 }

@@ -40,7 +40,7 @@ public class VisitController {
     }
 
     @GetMapping("pets/{pets_id}")
-    public ResponseFormat<List<VisitResDto.READ>> readPetToVisit(@PathVariable("pets_id") Long petId){
+    public ResponseFormat<List<VisitResDto.READ_PET>> readPetToVisit(@PathVariable("pets_id") Long petId){
         try {
             return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK,visitsService.readPetToVisit(petId));
         } catch (PetNotFoundException e) {
@@ -52,7 +52,7 @@ public class VisitController {
     }
 
     @GetMapping("vets/{vets_id}")
-    public ResponseFormat<List<VisitResDto.READ>> readVetToVisit(@PathVariable("vets_id") Long vetId){
+    public ResponseFormat<List<VisitResDto.READ_VET>> readVetToVisit(@PathVariable("vets_id") Long vetId){
         try {
             return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK,visitsService.readVetToVisit(vetId));
         } catch (VetNotFoundException e) {
@@ -64,7 +64,7 @@ public class VisitController {
     }
 
     @GetMapping("owners/{owners_id}")
-    public ResponseFormat<List<VisitResDto.READ>> readOwnerToVisit(@PathVariable("owners_id") Long ownerId){
+    public ResponseFormat<List<VisitResDto.READ_OWNER>> readOwnerToVisit(@PathVariable("owners_id") Long ownerId){
         try {
             return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, visitsService.readOwnerToVisit(ownerId));
         } catch (OwnerNotFoundException e){
