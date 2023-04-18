@@ -50,7 +50,6 @@ public class SpecialtiesService {
         specialties.updateSpecialtiesName(update.getSpecialtiesName());
     }
 
-    @Transactional
     public void deleteSpecialties(Long specialtiesId){
 
         final Specialties specialties = specialtiesRepository.findById(specialtiesId)

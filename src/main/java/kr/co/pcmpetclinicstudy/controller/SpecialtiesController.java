@@ -51,7 +51,7 @@ public class SpecialtiesController {
         }
     }
 
-    @GetMapping("{vets_id}")
+    @GetMapping("/{vets_id}")
     public ResponseFormat<List<SpecialtiesResDto.READ>> readVetOfSpecialties(@PathVariable("vets_id")Long vetId){
         try {
             specialtiesService.readSpecialtiesToId(vetId);

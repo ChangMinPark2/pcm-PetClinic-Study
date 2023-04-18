@@ -15,7 +15,7 @@ public interface SpecialtiesRepository extends JpaRepository<Specialties, Long> 
 
     Boolean existsBySpecialtiesNames(String SpecialtiesName);
 
-    @Query("select s from Specialties s where s.vet =: vet")
+    @Query("select s from Specialties s where s.vet =:vet")
     List<Specialties> findByVet(Vet vet);
 
     @Query("select s from Specialties s where s.id =:specialtiesId")

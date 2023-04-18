@@ -13,6 +13,5 @@ public interface OwnerRepository extends JpaRepository<Owner, Long> {
     @Query("select o from Owner o where o.id =:ownerId")
     Optional<Owner> findByOwnerId(Long ownerId);
 
-
     boolean existsByTelephone(String telephone);
 }
