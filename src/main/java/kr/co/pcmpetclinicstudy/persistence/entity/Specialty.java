@@ -17,27 +17,23 @@ import java.util.List;
         name = "id",
         column = @Column(name = "specialties_id", length = 4)
 )
-public class Specialties extends BaseEntity {
+public class Specialty extends BaseEntity {
 
     @Column(name = "specialties_name", length = 80)
     private String specialtiesNames;
 
     @OneToMany(
-            mappedBy = "specialties",
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}
+            mappedBy = "specialty",
+            fetch = FetchType.LAZY
     )
-    private List<VetSpecialties> vetSpecialties = new ArrayList<>();
+    private List<VetSpecialty> vetSpecialties = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vets_id")
-    private Vet vet;
 
     @Builder
-    private Specialties(String specialtiesNames,
-                        Vet vet) {
+    private Specialty(String specialtiesNames,
+                      List<VetSpecialty> vetSpecialties) {
         this.specialtiesNames = specialtiesNames;
-        this.vet = vet;
+        this.vetSpecialties = vetSpecialties;
     }
 
     public void updateSpecialtiesName(String specialtiesNames){
