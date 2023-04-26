@@ -22,18 +22,9 @@ public class Specialty extends BaseEntity {
     @Column(name = "specialties_name", length = 80)
     private String specialtiesNames;
 
-    @OneToMany(
-            mappedBy = "specialty",
-            fetch = FetchType.LAZY
-    )
-    private List<VetSpecialty> vetSpecialties = new ArrayList<>();
-
-
     @Builder
-    private Specialty(String specialtiesNames,
-                      List<VetSpecialty> vetSpecialties) {
+    private Specialty(String specialtiesNames) {
         this.specialtiesNames = specialtiesNames;
-        this.vetSpecialties = vetSpecialties;
     }
 
     public void updateSpecialtiesName(String specialtiesNames){

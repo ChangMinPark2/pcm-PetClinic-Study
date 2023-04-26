@@ -11,9 +11,6 @@ import java.util.Set;
 
 public interface VetSpecialtiesRepository extends JpaRepository<VetSpecialty, Long> {
 
-    @Query("select vs from VetSpecialty vs where vs.vet.id=:vetId")
-    List<VetSpecialty> findByVetId(@Param("vetId") Long vetId);
-
     Set<VetSpecialty> findByVetAndSpecialty_SpecialtiesNamesIn(Vet vet, Set<String> specialtiesNames);
 
     @Query("select count(vs) from VetSpecialty vs where vs.specialty.specialtiesNames =:specialtiesNames")
