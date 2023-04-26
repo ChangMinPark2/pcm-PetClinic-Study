@@ -19,7 +19,9 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
 //
 //    List<Visit> findByVet(Vet vet);
 
-
+    //엔티티객체로 했을 경우 오류 발생했음
+    //@param 을 생략하면, 메서드 파라미터 이름과 매핑할 값을 알 수 없어 오류
+    //매개변수와 @Param어노테이션에 값이 일치해야 매핑된다.
     @Query("select v from Visit v where v.owner.id =:ownerId")
     List<Visit> findByOwnerId(@Param("ownerId")Long ownerId);
 

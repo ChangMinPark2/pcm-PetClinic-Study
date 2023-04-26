@@ -1,7 +1,7 @@
 package kr.co.pcmpetclinicstudy.service.model.mapper;
 
 import kr.co.pcmpetclinicstudy.persistence.entity.Vet;
-import kr.co.pcmpetclinicstudy.persistence.entity.VetSpecialties;
+import kr.co.pcmpetclinicstudy.persistence.entity.VetSpecialty;
 import kr.co.pcmpetclinicstudy.service.model.request.VetReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.VetResDto;
 import org.mapstruct.Mapper;
@@ -16,7 +16,8 @@ public interface VetMapper {
 
     @Mapping(target = "firstName", source = "create.firstName")
     @Mapping(target = "lastName", source = "create.lastName")
-    Vet toVetEntity(VetReqDto.CREATE create);
+    @Mapping(target = "vetSpecialties", source = "vetSpecialties")
+    Vet toVetEntity(VetReqDto.CREATE create, List<VetSpecialty> vetSpecialties);
 
 
     @Mapping(target = "firstName", source = "vet.firstName")

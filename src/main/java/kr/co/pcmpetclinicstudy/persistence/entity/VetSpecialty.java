@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
         name = "id",
         column = @Column(name = "vet_specialties_id", length = 4)
 )
-public class VetSpecialties extends BaseEntity {
+public class VetSpecialty extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vets_id")
@@ -23,12 +23,12 @@ public class VetSpecialties extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "specialties_id")
-    private Specialties specialties;
+    private Specialty specialty;
 
     @Builder
-    public VetSpecialties(Vet vet,
-                          Specialties specialties) {
+    public VetSpecialty(Vet vet,
+                        Specialty specialty) {
         this.vet = vet;
-        this.specialties = specialties;
+        this.specialty = specialty;
     }
 }
