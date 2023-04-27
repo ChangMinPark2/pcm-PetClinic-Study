@@ -3,8 +3,16 @@ package kr.co.pcmpetclinicstudy.service.model.request;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.List;
+
 public class OwnerReqDto {
 
+    @Getter
+    @AllArgsConstructor
+    public static class CONDITION{
+
+        private List<Long> ids;
+    }
     @Getter
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)

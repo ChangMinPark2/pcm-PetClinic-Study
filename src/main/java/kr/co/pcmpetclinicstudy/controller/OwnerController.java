@@ -27,16 +27,28 @@ public class OwnerController {
         }
     }
 
-    @GetMapping("/{owners_id}")
-    public ResponseFormat<OwnerResDto.READ> readOwner(@PathVariable(name = "owners_id") Long ownerId){
+    /**
+     * ResponseFormat? -> 제네릭 선언, 어떤 타입이든 사용될 수 있다는 것을 의미한다.
+     * */
+    @GetMapping
+    private ResponseFormat<?> readOwner(OwnerReqDto.CONDITION condition){
         try {
-            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, ownersService.readOwner(ownerId));
-        } catch (OwnerNotFoundException e){
-            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, ownersService.readOwner(condition));
         } catch (RuntimeException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
         }
     }
+
+//    @GetMapping("/{owners_id}")
+//    public ResponseFormat<OwnerResDto.READ> readOwner(@PathVariable(name = "owners_id") Long ownerId){
+//        try {
+//            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, ownersService.readOwner(ownerId));
+//        } catch (OwnerNotFoundException e){
+//            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
+//        } catch (RuntimeException e){
+//            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+//        }
+//    }
 
     @PutMapping
     public ResponseFormat<Void> updateOwner(@RequestBody @Valid OwnerReqDto.UPDATE update){
