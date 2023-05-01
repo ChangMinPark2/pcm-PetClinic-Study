@@ -31,10 +31,10 @@ public class PetController {
         }
     }
 
-    @GetMapping("/owners/{owners_id}")
-    public ResponseFormat<List<PetResDto.READ>> readPet(@PathVariable(name = "owners_id") Long ownerId){
+    @GetMapping
+    public ResponseFormat<?> readPet(PetReqDto.CONDITION condition){
         try {
-            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, petsService.readPet(ownerId));
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, petsService.readPet(condition));
         } catch (OwnerNotFoundException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
         } catch (RuntimeException e){
