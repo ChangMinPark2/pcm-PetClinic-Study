@@ -5,8 +5,16 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class VisitReqDto {
+
+    @Getter
+    @AllArgsConstructor
+    public static class CONDITION{
+
+        private List<Long> ids;
+    }
 
     @Getter
     @Builder

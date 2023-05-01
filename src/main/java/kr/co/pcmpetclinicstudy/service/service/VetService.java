@@ -9,6 +9,7 @@ import kr.co.pcmpetclinicstudy.persistence.entity.VetSpecialty;
 import kr.co.pcmpetclinicstudy.persistence.repository.SpecialtyRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VetRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VetSpecialtiesRepository;
+import kr.co.pcmpetclinicstudy.persistence.repository.search.VetSearchRepository;
 import kr.co.pcmpetclinicstudy.service.model.mapper.SpecialtiesMapper;
 import kr.co.pcmpetclinicstudy.service.model.mapper.VetMapper;
 import kr.co.pcmpetclinicstudy.service.model.mapper.VetSpecialtiesMapper;
@@ -40,6 +41,8 @@ public class VetService {
     private final VetSpecialtiesMapper vetSpecialtiesMapper;
 
     private final SpecialtiesMapper specialtiesMapper;
+
+    private final VetSearchRepository vetSearchRepository;
 
     /**
      * Vet 생성 서비스 메소드
