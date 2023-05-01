@@ -13,6 +13,7 @@ import kr.co.pcmpetclinicstudy.persistence.repository.OwnerRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.PetRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VetRepository;
 import kr.co.pcmpetclinicstudy.persistence.repository.VisitRepository;
+import kr.co.pcmpetclinicstudy.persistence.repository.search.VisitSearchRepository;
 import kr.co.pcmpetclinicstudy.service.model.mapper.VisitMapper;
 import kr.co.pcmpetclinicstudy.service.model.request.VisitReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.VisitResDto;
@@ -36,6 +37,8 @@ public class VisitService {
     private final VetRepository vetRepository;
 
     private final OwnerRepository ownerRepository;
+
+    private final VisitSearchRepository visitSearchRepository;
 
     @Transactional
     public void createVisit(VisitReqDto.CREATE create){
@@ -65,13 +68,24 @@ public class VisitService {
      * 해당 소유자 방문 정보 리스트 출력
      * ownerId 찾은 후 owner가 가진 방문정보 리스트를 출력한다.
      * */
-    public List<VisitResDto.READ_OWNER> readOwnerToVisit(Long ownerId){
+//    public List<VisitResDto.READ_OWNER> readOwnerToVisit(Long ownerId){
+//
+//        final Owner owner = ownerRepository.findById(ownerId)
+//                .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
+//
+//        return visitRepository.findByOwnerId(owner.getId())
+//                .stream()
+//                .map(visitMapper::toReadOwner)
+//                .collect(Collectors.toList());
+//    }
+    /**
+     * QuearyDsl 변경
+     * */
+    public List<VisitResDto.READ_OWNER> readOwnerToVisit(VisitReqDto.CONDITION condition){
 
-        final Owner owner = ownerRepository.findById(ownerId)
-                .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
+        List<Visit> visits = visitSearchRepository.findVisitToOwner(condition);
 
-        return visitRepository.findByOwnerId(owner.getId())
-                .stream()
+        return visits.stream()
                 .map(visitMapper::toReadOwner)
                 .collect(Collectors.toList());
     }
@@ -80,13 +94,25 @@ public class VisitService {
      * 해당 수의사가 방문자 정보 리스트 출력
      * vetId 찾은 후 visit이 가진 방문정보 리스트를 출력한다.
      * */
-    public List<VisitResDto.READ_VET> readVetToVisit(Long vetId){
+//    public List<VisitResDto.READ_VET> readVetToVisit(Long vetId){
+//
+//        final Vet vet = vetRepository.findById(vetId)
+//                .orElseThrow(() -> new VetNotFoundException(ErrorCodeType.FAIL_NOT_VET_FOUND));
+//
+//        return visitRepository.findByVetId(vet.getId())
+//                .stream()
+//                .map(visitMapper::toReadVet)
+//                .collect(Collectors.toList());
+//    }
 
-        final Vet vet = vetRepository.findById(vetId)
-                .orElseThrow(() -> new VetNotFoundException(ErrorCodeType.FAIL_NOT_VET_FOUND));
+    /**
+     * QuearyDsl 변경
+     * */
+    public List<VisitResDto.READ_VET> readVetToVisit(VisitReqDto.CONDITION condition){
 
-        return visitRepository.findByVetId(vet.getId())
-                .stream()
+        List<Visit> visits = visitSearchRepository.findVisitToVet(condition);
+
+        return visits.stream()
                 .map(visitMapper::toReadVet)
                 .collect(Collectors.toList());
     }
@@ -95,16 +121,29 @@ public class VisitService {
      * 해당 애완동물 방문 정보 리스트 출력
      * petId 찾은 후 pet이 가진 방문정보 리스트를 출력한다.
      * */
-    public List<VisitResDto.READ_PET> readPetToVisit(Long petId){
+//    public List<VisitResDto.READ_PET> readPetToVisit(Long petId){
+//
+//        final Pet pet = petRepository.findById(petId)
+//                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
+//
+//        return visitRepository.findByPetId(pet.getId())
+//                .stream()
+//                .map(visitMapper::toReadPet)
+//                .collect(Collectors.toList());
+//    }
 
-        final Pet pet = petRepository.findById(petId)
-                .orElseThrow(() -> new PetNotFoundException(ErrorCodeType.FAIL_NOT_PET_FOUND));
+    /**
+     * QuearyDsl 변경
+     * */
+    public List<VisitResDto.READ_PET> readPetToVisit(VisitReqDto.CONDITION condition){
 
-        return visitRepository.findByPetId(pet.getId())
-                .stream()
+        List<Visit> visits = visitSearchRepository.findVisitToPet(condition);
+
+        return visits.stream()
                 .map(visitMapper::toReadPet)
                 .collect(Collectors.toList());
     }
+
 
     /**
      *  방문정보 id를 통해 상세한 방문정보를 출력한다.

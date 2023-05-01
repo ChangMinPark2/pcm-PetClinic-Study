@@ -13,9 +13,6 @@ import kr.co.pcmpetclinicstudy.service.service.VisitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.Socket;
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/visits")
@@ -39,34 +36,67 @@ public class VisitController {
         }
     }
 
-    @GetMapping("pets/{pets_id}")
-    public ResponseFormat<List<VisitResDto.READ_PET>> readPetToVisit(@PathVariable("pets_id") Long petId){
+//    @GetMapping("pets/{pets_id}")
+//    public ResponseFormat<List<VisitResDto.READ_PET>> readPetToVisit(@PathVariable("pets_id") Long petId){
+//        try {
+//            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK,visitsService.readPetToVisit(petId));
+//        } catch (PetNotFoundException e) {
+//            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_PET_FOUND);
+//        } catch (RuntimeException e){
+//            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+//        }
+//
+//    }
+
+    @GetMapping("/pet")
+    public ResponseFormat<?> readPetToVisit(VisitReqDto.CONDITION condition){
         try {
-            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK,visitsService.readPetToVisit(petId));
-        } catch (PetNotFoundException e) {
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, visitsService.readPetToVisit(condition));
+        } catch (PetNotFoundException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_NOT_PET_FOUND);
         } catch (RuntimeException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
         }
-
     }
 
-    @GetMapping("vets/{vets_id}")
-    public ResponseFormat<List<VisitResDto.READ_VET>> readVetToVisit(@PathVariable("vets_id") Long vetId){
+//    @GetMapping("vets/{vets_id}")
+//    public ResponseFormat<List<VisitResDto.READ_VET>> readVetToVisit(@PathVariable("vets_id") Long vetId){
+//        try {
+//            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK,visitsService.readVetToVisit(vetId));
+//        } catch (VetNotFoundException e) {
+//            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_VET_FOUND);
+//        } catch (RuntimeException e){
+//            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+//        }
+//
+//    }
+
+    @GetMapping("/vet")
+    public ResponseFormat<?> readVetToVisit(VisitReqDto.CONDITION condition){
         try {
-            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK,visitsService.readVetToVisit(vetId));
-        } catch (VetNotFoundException e) {
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, visitsService.readVetToVisit(condition));
+        } catch (VetNotFoundException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_NOT_VET_FOUND);
         } catch (RuntimeException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
         }
-
     }
 
-    @GetMapping("owners/{owners_id}")
-    public ResponseFormat<List<VisitResDto.READ_OWNER>> readOwnerToVisit(@PathVariable("owners_id") Long ownerId){
+//    @GetMapping("owners/{owners_id}")
+//    public ResponseFormat<List<VisitResDto.READ_OWNER>> readOwnerToVisit(@PathVariable("owners_id") Long ownerId){
+//        try {
+//            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, visitsService.readOwnerToVisit(ownerId));
+//        } catch (OwnerNotFoundException e){
+//            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
+//        } catch (RuntimeException e){
+//            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
+//        }
+//    }
+
+    @GetMapping("/owner")
+    public ResponseFormat<?> readOwnerToVisit(VisitReqDto.CONDITION condition){
         try {
-            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, visitsService.readOwnerToVisit(ownerId));
+            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, visitsService.readOwnerToVisit(condition));
         } catch (OwnerNotFoundException e){
             return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
         } catch (RuntimeException e){

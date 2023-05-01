@@ -5,10 +5,23 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 public class VetReqDto {
 
+    @Getter
+    @AllArgsConstructor
+    public static class CONDITION{
+
+        private List<Long> ids;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class CONDITION_SPECIALTY_NAME{
+        private List<String> specialtyName;
+    }
     @Getter
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)

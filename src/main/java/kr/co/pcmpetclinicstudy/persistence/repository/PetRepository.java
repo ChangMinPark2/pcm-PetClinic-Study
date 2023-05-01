@@ -17,6 +17,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
      * 메소드 이름 규칙으로는 표현하기 어려운 복잡한 쿼리, Join쿼리 등을 작성할 때 직접 쿼리 작성해야함
      * 하지만 밑에 경우, 자동으로 생성되지만, 성능 최적화를 위해 작성(과제)
      * */
+
     // 객체로 하면 안됨
 //    @Query("select p from Pet p where p.owner =:owner")
 //    List<Pet> findByOwner(@Param("owner") Owner owner);

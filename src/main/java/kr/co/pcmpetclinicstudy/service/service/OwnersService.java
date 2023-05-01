@@ -5,6 +5,7 @@ import kr.co.pcmpetclinicstudy.infra.error.exception.OwnerNotFoundException;
 import kr.co.pcmpetclinicstudy.infra.error.model.ErrorCodeType;
 import kr.co.pcmpetclinicstudy.persistence.entity.Owner;
 import kr.co.pcmpetclinicstudy.persistence.repository.OwnerRepository;
+import kr.co.pcmpetclinicstudy.persistence.repository.search.OwnerSearchRepository;
 import kr.co.pcmpetclinicstudy.service.model.mapper.OwnerMapper;
 import kr.co.pcmpetclinicstudy.service.model.request.OwnerReqDto;
 import kr.co.pcmpetclinicstudy.service.model.response.OwnerResDto;
@@ -12,12 +13,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class OwnersService {
 
     private final OwnerRepository ownerRepository;
+
+    private final OwnerSearchRepository ownerSearchRepository;
 
     private final OwnerMapper ownerMapper;
 
@@ -42,6 +48,7 @@ public class OwnersService {
         ownerRepository.save(owner);
     }
 
+    @Transactional
     public void deleteOwner(Long ownerId){
 
         final Owner owner = ownerRepository.findById(ownerId)
@@ -50,12 +57,16 @@ public class OwnersService {
         ownerRepository.delete(owner);
     }
 
-    @Transactional(readOnly = true)
-    public OwnerResDto.READ readOwner(Long ownerId){
-        Owner owner = ownerRepository.findByOwnerId(ownerId)
-                .orElseThrow(() -> new OwnerNotFoundException(ErrorCodeType.FAIL_NOT_OWNER_FOUND));
+    public List<OwnerResDto.READ> readOwner(OwnerReqDto.CONDITION condition){
+        List<Owner> owner = ownerSearchRepository.find(condition);
+//
+//        return ownerMapper.toReadDto(owner);
 
-        return ownerMapper.toReadDto(owner);
+        return owner
+                .stream()
+                .map(ownerMapper::toReadDto)
+                .collect(Collectors.toList());
+
     }
 
     private void checkTelephone(String telephone){
