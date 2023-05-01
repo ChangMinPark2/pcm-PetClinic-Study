@@ -48,6 +48,7 @@ public class OwnersService {
         ownerRepository.save(owner);
     }
 
+    @Transactional
     public void deleteOwner(Long ownerId){
 
         final Owner owner = ownerRepository.findById(ownerId)
@@ -56,7 +57,6 @@ public class OwnersService {
         ownerRepository.delete(owner);
     }
 
-    @Transactional(readOnly = true)
     public List<OwnerResDto.READ> readOwner(OwnerReqDto.CONDITION condition){
         List<Owner> owner = ownerSearchRepository.find(condition);
 //
