@@ -20,11 +20,17 @@ public class PetSearchRepository {
     private final QPet pet = QPet.pet;
 
     private final QOwner owner = QOwner.owner;
-
+    /**
+     * N+1문제를 해결하기 위해서는 일반적으로 즉시 로딩이나, 지연로딩을 사용한다.
+     * 즉시로딩(Eager Loding) -> 커리 결과를 미리 로딩한다.
+     * 지연로딩(Lazy Loding) -> 필요한 경우에만 로딩하여 불필요한 데이터베이스 요청을 최소화 할 수 있다.
+     * 아래에서 사용한 fetchJoin은 Lazy로 설정된 관계를 즉시로딩으로 땡겨온다.
+     * */
     public List<Pet> find(PetReqDto.CONDITION condition){
         return jpaQueryFactory
                 .selectFrom(pet)
-                .join(owner).fetchJoin()
+                .join(owner)
+                .fetchJoin()
                 .where(petIdIn(condition.getIds()))
                 .fetch();
     }

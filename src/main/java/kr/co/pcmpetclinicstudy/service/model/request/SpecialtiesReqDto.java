@@ -4,8 +4,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 public class SpecialtiesReqDto {
 
+    @Getter
+    @AllArgsConstructor
+    public static class CONDITION{
+
+        private List<String> names;
+    }
     @Getter
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)

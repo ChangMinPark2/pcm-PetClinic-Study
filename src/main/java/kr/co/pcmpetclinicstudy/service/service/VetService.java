@@ -57,7 +57,6 @@ public class VetService {
         vetSpecialtiesRepository.saveAll(vetSpecialties);
 
         vetRepository.save(vet);
-
     }
 
     /**
@@ -155,7 +154,7 @@ public class VetService {
      * */
     private Set<Specialty> getOrCreateSpecialtiesByNames(Set<String> specialtiesNames) {
 
-        List<Specialty> specialties = specialtyRepository.findAllBySpecialtiesNameIn(specialtiesNames);
+        List<Specialty> specialties = specialtyRepository.  findAllBySpecialtiesNameIn(specialtiesNames);
 
         final Set<String> existNames = specialties
                 .stream()
