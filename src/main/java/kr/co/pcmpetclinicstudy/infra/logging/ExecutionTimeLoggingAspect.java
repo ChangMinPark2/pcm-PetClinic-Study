@@ -17,7 +17,20 @@ public class ExecutionTimeLoggingAspect {
     @Pointcut("execution(* kr.co.pcmpetclinicstudy.service.service.OwnersService.*(..))")
     private void allOwnerService(){}
 
-    @Around("allOwnerService()") //메소드 실행 전후에 처리를 수행해주는 어노테이션이다.
+    @Pointcut("execution(* kr.co.pcmpetclinicstudy.service.service.PetService.*(..))")
+    private void allPetService() {
+    }
+
+    @Pointcut("execution(* kr.co.pcmpetclinicstudy.service.service.VetService.*(..))")
+    private void allVetService() {
+    }
+
+    @Pointcut("execution(* kr.co.pcmpetclinicstudy.service.service.VisitService.*(..))")
+    private void allVisitService() {
+    }
+
+    //메소드 실행 전후에 처리를 수행해주는 어노테이션이다.
+    @Around("allOwnerService() || allPetService() || allVetService() || allVisitService()")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable{
         //매개변수 -> AOP를 통해 적용된 메소드를 나타내는 객체이다.
 
