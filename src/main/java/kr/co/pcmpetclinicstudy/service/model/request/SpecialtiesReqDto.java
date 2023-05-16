@@ -12,7 +12,7 @@ public class SpecialtiesReqDto {
     @AllArgsConstructor
     public static class CONDITION{
 
-        private List<Long> ids;
+        private List<String> names;
     }
     @Getter
     @Builder
