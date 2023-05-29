@@ -19,12 +19,9 @@ public class OwnerController {
 
     @PostMapping
     public ResponseFormat<Void> createOwner(@RequestBody @Valid OwnerReqDto.CREATE create){
-        try {
-            ownersService.createOwner(create);
-            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
-        } catch (RuntimeException e){
-            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
-        }
+
+        ownersService.createOwner(create);
+        return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
     }
 
     /**
@@ -32,11 +29,7 @@ public class OwnerController {
      * */
     @GetMapping
     private ResponseFormat<?> readOwner(OwnerReqDto.CONDITION condition){
-        try {
-            return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, ownersService.readOwner(condition));
-        } catch (RuntimeException e){
-            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
-        }
+        return ResponseFormat.successWithData(ErrorCodeType.SUCCESS_OK, ownersService.readOwner(condition));
     }
 
 //    @GetMapping("/{owners_id}")
@@ -52,26 +45,14 @@ public class OwnerController {
 
     @PutMapping
     public ResponseFormat<Void> updateOwner(@RequestBody @Valid OwnerReqDto.UPDATE update){
-        try {
-            ownersService.updateOwner(update);
-            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
-        } catch (OwnerNotFoundException e){
-            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
-        } catch (RuntimeException e){
-            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
-        }
+        ownersService.updateOwner(update);
+        return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
+
     }
 
     @DeleteMapping("/{owners_id}")
     public ResponseFormat<Void> deleteOwner(@PathVariable(name = "owners_id")Long ownerId){
-        try {
-            ownersService.deleteOwner(ownerId);
-            return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
-        } catch (OwnerNotFoundException e){
-            return ResponseFormat.error(ErrorCodeType.FAIL_NOT_OWNER_FOUND);
-        } catch (RuntimeException e){
-            return ResponseFormat.error(ErrorCodeType.FAIL_BAD_REQUEST);
-        }
+        ownersService.deleteOwner(ownerId);
+        return ResponseFormat.success(ErrorCodeType.SUCCESS_OK);
     }
-
 }

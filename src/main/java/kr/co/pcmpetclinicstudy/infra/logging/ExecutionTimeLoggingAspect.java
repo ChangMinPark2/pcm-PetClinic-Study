@@ -48,7 +48,7 @@ public class ExecutionTimeLoggingAspect {
         Object result = joinPoint.proceed();
         //실제 메소드 시작. result에 저장
         stopWatch.stop();
-
+                            //클라스이름.메소드이름 : 시간
         log.info("[ExecutionTime] {}.{} : {}ms", className, methodName, stopWatch.getTotalTimeMillis());
         //실행 시간을 로그로 출력 로그는 실행된 메소드의 클래스, 메소드, 실행시간을 포함한다.
         return result;
