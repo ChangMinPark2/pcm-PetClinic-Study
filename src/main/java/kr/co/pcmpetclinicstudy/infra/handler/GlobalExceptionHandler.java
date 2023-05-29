@@ -8,12 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+@RestControllerAdvice//전역 예외 처리를 담당하는 클라스인 GlobalExceptionHandler를 정의한다.
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(DuplicatedException.class)
+    /**
+     * 중복 에러 핸들러
+     * */
+    @ExceptionHandler(DuplicatedException.class)// 중복 에러 핸들러 메서드 정의
     protected ResponseEntity<ResponseFormat> handleDuplicatedException(DuplicatedException e){
-
+    //해당 클래스 내부에만 접근
         ResponseFormat responseFormat = ResponseFormat.builder()
                 .message(e.getMessage())
                 .httpStatus(ErrorCodeType.FAIL_BAD_REQUEST.getStatusCode())
