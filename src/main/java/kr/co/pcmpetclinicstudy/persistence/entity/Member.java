@@ -3,7 +3,6 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import kr.co.pcmpetclinicstudy.service.model.enums.Role;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +14,7 @@ import lombok.NoArgsConstructor;
         name = "id",
         column = @Column(name = "admin_id")
 )
-public class Admin extends BaseEntity {
+public class Member extends BaseEntity {
 
     @Column(name = "name")
     private String name;
