@@ -3,6 +3,7 @@ package kr.co.pcmpetclinicstudy.persistence.entity;
 import jakarta.persistence.*;
 import kr.co.pcmpetclinicstudy.persistence.BaseEntity;
 import kr.co.pcmpetclinicstudy.service.model.enums.Role;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,4 +30,14 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Builder
+    public Member(String name,
+                  String identity,
+                  String password,
+                  Role role) {
+        this.name = name;
+        this.identity = identity;
+        this.password = password;
+        this.role = role;
+    }
 }
