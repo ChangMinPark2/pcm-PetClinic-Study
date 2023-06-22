@@ -132,8 +132,6 @@ public class VetService {
         vetSpecialtiesRepository.deleteAll(vetSpecialties);
 
         deleteBySpecialtiesWithoutVet(delete.getSpecialtiesName());
-
-
     }
 
     /**
